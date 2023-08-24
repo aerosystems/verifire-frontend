@@ -2,7 +2,7 @@
   <div class="form-outer">
     <div class="form-inner">
       <div>
-        <div onclick="window.location.href ='/';" class="close"></div>
+        <div @click="this.$router.push('/');" class="close"></div>
       </div>
       <Form :validation-schema="schema">
         <ul class="actions stacked">
@@ -19,10 +19,10 @@
       </Form>
       <div>
         <ul class="actions">
-          <li id="sendLi">
+          <li>
             <button class="button submit primary" :disabled="loading">Next</button>
           </li>
-          <li><a href="/signup" class="button">Sign In</a></li>
+          <li><a @click="this.$router.push('/signup')" class="button">Sign Up</a></li>
         </ul>
         <a href="/recovery">Forgot password?</a>
       </div>
@@ -57,14 +57,14 @@ export default {
       schema,
     };
   },
-  // computed: {
-  //   loggedIn() {
-  //     return this.$store.state.auth.status.loggedIn;
-  //   },
-  // },
+  computed: {
+    loggedIn() {
+      return this.$store.state.auth.status.loggedIn;
+    },
+  },
   created() {
     if (this.loggedIn) {
-      this.$router.push({name: "chat"});
+      this.$router.push({name: "billing"});
     }
   },
   mounted() {
@@ -75,7 +75,7 @@ export default {
 
       this.$store.dispatch("auth/login", user).then(
           () => {
-            this.$router.push({name: "chat"});
+            this.$router.push({name: "billing"});
           },
           (error) => {
             this.loading = false;
