@@ -2,12 +2,16 @@ import api from "./api";
 import TokenService from "./token.service";
 
 class AuthService {
-    login({email, password}) {
+    login({email, password}, token) {
         return api
             .post("/auth/v1/user/login", {
                 email,
                 password
-            })
+            }, {
+                    headers: {
+                        'X-RECAPTCHA-V3-TOKEN': token
+                    }
+                })
             .then(
                 (response) => {
                     if (response.data.data.accessToken) {

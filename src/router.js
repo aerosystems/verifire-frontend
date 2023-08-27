@@ -37,7 +37,7 @@ const routes = [
         name: "logout",
         beforeEnter: (to, from, next) => {
             AuthService.logout()
-            next({ name: "main" });
+            next({name: "main"});
         },
     },
     {
@@ -51,13 +51,11 @@ const router = createRouter({
     history: createWebHistory(),
     routes,
     scrollBehavior(to, from, savedPosition) {
+
         if (savedPosition) {
             return savedPosition;
         } else {
-            return {
-                el: to.hash,
-                behavior: "smooth",
-            };
+            if (to.hash) return {el: to.hash, behavior: "smooth"};
         }
     },
 });

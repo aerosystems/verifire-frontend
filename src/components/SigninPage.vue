@@ -41,6 +41,7 @@
 
 <script>
 import {Form, Field, ErrorMessage} from "vee-validate";
+import {useReCaptcha} from 'vue-recaptcha-v3'
 import * as yup from "yup";
 import router from "@/router";
 
@@ -54,6 +55,21 @@ export default {
     Form,
     Field,
     ErrorMessage,
+  },
+  setup() {
+    document.title = "Sign In";
+    const { executeRecaptcha, recaptchaLoaded } = useReCaptcha();
+    const recaptcha = async () => {
+      // (optional) Wait until recaptcha has been loaded.
+      await recaptchaLoaded();
+
+      // Execute reCAPTCHA with action "login".
+      await executeRecaptcha('login');
+    }
+
+    return {
+      recaptcha
+    }
   },
   beforeRouteEnter(to, from, next) {
     next((component) => {
@@ -78,7 +94,6 @@ export default {
           .min(8, "Must be at least 8 characters!")
           .max(128, "Must be maximum 128 characters!"),
     });
-
     return {
       loading: false,
       message: "",
@@ -96,10 +111,12 @@ export default {
     }
   },
   methods: {
-    handleLogin(user) {
+    async handleLogin(user) {
       this.loading = true;
 
-      this.$store.dispatch("auth/login", user).then(
+      let token = await this.recaptcha(undefined, undefined);
+
+      this.$store.dispatch("auth/login", user, token).then(
           () => {
             router.push({name: "billing"});
           },

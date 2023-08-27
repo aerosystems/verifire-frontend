@@ -1,38 +1,41 @@
 import AuthService from '../services/auth.service';
+import TokenService from "@/services/token.service";
 
 const user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? {status: {loggedIn: true}, user} : {status: {loggedIn: false}, user: null};
+const initialState = user ? { status: { loggedIn: true }, user } : { status: { loggedIn: false }, user: null };
 
 export const auth = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({commit}, user) {
-            return AuthService.login(user)
+        login({ commit }, user, token) {
+            return AuthService.login(user, token)
                 .then(
-                    function (user) {
-                        commit('loginSuccess', user);
-                        return Promise.resolve(user);
-                    },
-                    function (error) {
-                        commit('loginFailure');
-                        return Promise.reject(error);
-                    }
-                );
-        },
-        logout({commit}) {
-            return AuthService.logout().then(
-                function (response) {
-                    commit('logout');
-                    return Promise.resolve(response.data);
+                function (user) {
+                    commit('loginSuccess', user);
+                    return Promise.resolve(user);
                 },
                 function (error) {
-                    commit('logout');
+                    commit('loginFailure');
                     return Promise.reject(error);
                 }
             );
         },
-        register({commit}, user) {
+        logout({ commit }) {
+            if (TokenService.getLocalAccessToken() != null) {
+                return AuthService.logout().then(
+                    function (response) {
+                        commit('logout');
+                        return Promise.resolve(response.data);
+                    },
+                    function (error) {
+                        commit('logout');
+                        return Promise.reject(error);
+                    }
+                );
+            }
+        },
+        register({ commit }, user) {
             return AuthService.register(user).then(
                 function (response) {
                     commit('registerSuccess');
@@ -44,7 +47,7 @@ export const auth = {
                 }
             );
         },
-        updateTokens({commit}, accessToken, refreshToken) {
+        updateTokens({ commit }, accessToken, refreshToken) {
             commit('updateTokens', accessToken, refreshToken);
         }
     },
@@ -69,7 +72,7 @@ export const auth = {
         },
         updateTokens(state, accessToken, refreshToken) {
             state.status.loggedIn = true;
-            state.user = {...state.user, accessToken: accessToken, refreshToken: refreshToken};
+            state.user = { ...state.user, accessToken: accessToken, refreshToken: refreshToken };
         }
     }
 };
