@@ -4,6 +4,7 @@ import SigninPage from "./components/SigninPage.vue";
 import SignupPage from "./components/SignupPage.vue";
 import BillingPage from "@/components/BillingPage.vue";
 import RecoveryPage from "@/components/RecoveryPage.vue";
+import AuthService from "@/services/auth.service";
 
 const routes = [
     {
@@ -30,6 +31,14 @@ const routes = [
         path: "/recovery",
         name: "recovery",
         component: RecoveryPage,
+    },
+    {
+        path: "/logout",
+        name: "logout",
+        beforeEnter: (to, from, next) => {
+            AuthService.logout()
+            next({ name: "main" });
+        },
     },
     {
         path: "/:catchAll(.*)",

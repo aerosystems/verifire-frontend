@@ -2,39 +2,45 @@ import api from "./api";
 import TokenService from "./token.service";
 
 class AuthService {
-    login({username, password}) {
+    login({email, password}) {
         return api
-            .post("/v1/user/login", {
-                username,
+            .post("/auth/v1/user/login", {
+                email,
                 password
             })
-            .then((response) => {
-                if (response.data.data.accessToken) {
-                    TokenService.setUser(response.data.data);
-                }
-                return response.data.data;
-            });
-    }
-
-    logout() {
-        return api
-            .post("/v1/user/logout", {}, {
-                headers: {
-                    Authorization: 'Bearer ' + TokenService.getLocalAccessToken()
-                }
-            })
             .then(
-                function (response) {
-                    TokenService.removeUser();
+                (response) => {
+                    if (response.data.data.accessToken) {
+                        TokenService.setUser(response.data.data);
+                    }
                     return response.data.data;
+                },
+                (error) => {
+                    return Promise.reject(error);
                 }
             );
     }
 
-    register({username, email, password}) {
+    logout() {
+        if (TokenService.getLocalAccessToken() != null) {
+            return api
+                .post("/auth/v1/user/logout", {}, {
+                    headers: {
+                        Authorization: 'Bearer ' + TokenService.getLocalAccessToken()
+                    }
+                })
+                .then(
+                    function (response) {
+                        TokenService.removeUser();
+                        return response.data.data;
+                    }
+                );
+        }
+    }
+
+    register({email, password}) {
         return api
-            .post("/v1/user/register", {
-                username,
+            .post("/auth/v1/user/register", {
                 email,
                 password
             });

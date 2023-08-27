@@ -4,10 +4,8 @@ class TokenService {
         const user = JSON.parse(localStorage.getItem("user"));
         if (user?.refreshToken) {
             const decoded = jwt_decode(user.refreshToken);
-            if (decoded.exp * 1000 < Date.now()) {
-                return true;
-            }
-            return false;
+            return decoded.exp * 1000 < Date.now();
+
         }
         return true;
     }
