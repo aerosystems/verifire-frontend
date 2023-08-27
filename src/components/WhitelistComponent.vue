@@ -1,5 +1,5 @@
 <template>
-  <section id="addWhitelist" class="wrapper style1 fullscreen fade-up">
+  <section id="whitelist" class="wrapper style1 fullscreen fade-up">
     <div class="inner">
       <section>
         <h1>Add domain to WHITELIST</h1>

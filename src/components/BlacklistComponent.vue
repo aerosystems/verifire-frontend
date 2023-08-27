@@ -1,5 +1,5 @@
 <template>
-  <section id="addBlacklist" class="wrapper style1 fullscreen fade-up">
+  <section id="blacklist" class="wrapper style1 fullscreen fade-up">
     <div class="inner">
       <section>
         <h1>Add domain to BLACKLIST</h1>
@@ -28,6 +28,7 @@
 <script>
 export default {
   name: 'BlacklistComponent',
+  el: '#addBlacklist',
   setup() {
 
 

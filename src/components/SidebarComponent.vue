@@ -3,17 +3,27 @@
     <div class="inner">
       <nav>
         <ul>
-          <li id='enter'></li>
+          <li>
+            <router-link to="/signin"><font-awesome-icon icon="sign-in-alt"/> Sign In</router-link>
+          </li>
           <li>
             <router-link to="/#check">Check</router-link>
           </li>
           <li>
-            <router-link :to="{ path: '/', hash: '#addWhitelist' }">Add Blacklist</router-link>
+            <router-link to="/#blacklist">Add Blacklist</router-link>
           </li>
-          <li><a href="#addWhitelist">Add Whitelist</a></li>
-          <li><a href="#api">API</a></li>
-          <li><a href="#whatwedo">What We Do</a></li>
-          <li><a href="#donate">Donate</a></li>
+          <li>
+            <router-link to="/#whitelist">Add Whitelist</router-link>
+          </li>
+          <li>
+            <router-link to="/#api">API</router-link>
+          </li>
+          <li>
+            <router-link to="/#whatwedo">What We Do</router-link>
+          </li>
+          <li>
+            <router-link to="/#donate">Donate</router-link>
+          </li>
         </ul>
       </nav>
     </div>
@@ -27,7 +37,16 @@ export default {
 
 
     return {}
-  }
+  },
+  methods: {
+    scrollToElement(targetId) {
+      const el = document.getElementById(targetId.value);
+
+      if (el) {
+        el.scrollIntoView();
+      }
+    }
+  },
 }
 </script>
 
