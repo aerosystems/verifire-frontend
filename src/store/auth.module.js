@@ -8,7 +8,8 @@ export const auth = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({ commit }, user, token) {
+        login({ commit }, {user, token}) {
+            console.log(user, token);
             return AuthService.login(user, token)
                 .then(
                 function (user) {

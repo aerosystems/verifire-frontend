@@ -64,7 +64,7 @@ export default {
       await recaptchaLoaded();
 
       // Execute reCAPTCHA with action "login".
-      await executeRecaptcha('login');
+      return await executeRecaptcha('login');
     }
 
     return {
@@ -116,7 +116,7 @@ export default {
 
       let token = await this.recaptcha(undefined, undefined);
 
-      this.$store.dispatch("auth/login", user, token).then(
+      this.$store.dispatch("auth/login", {user, token}).then(
           () => {
             router.push({name: "billing"});
           },

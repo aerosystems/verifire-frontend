@@ -3,13 +3,14 @@ import TokenService from "./token.service";
 
 class AuthService {
     login({email, password}, token) {
+        console.log(password, token);
         return api
             .post("/auth/v1/user/login", {
                 email,
                 password
             }, {
                     headers: {
-                        'X-RECAPTCHA-V3-TOKEN': token
+                        'X-Recaptcha-V3-Token': token
                     }
                 })
             .then(
@@ -37,6 +38,12 @@ class AuthService {
                     function (response) {
                         TokenService.removeUser();
                         return response.data.data;
+                    }
+                )
+                .catch(
+                    function (error) {
+                        TokenService.removeUser();
+                        return Promise.reject(error);
                     }
                 );
         }
