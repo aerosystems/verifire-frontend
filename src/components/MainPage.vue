@@ -44,6 +44,7 @@ import WhitelistComponent from "@/components/WhitelistComponent.vue";
 import BlacklistComponent from "@/components/BlacklistComponent.vue";
 import SearchComponent from "@/components/SearchComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
+import {useReCaptcha} from "vue-recaptcha-v3";
 
 export default {
   name: "MainPage",
@@ -54,12 +55,27 @@ export default {
     WhitelistComponent, ApiComponent, AboutComponent, DonateComponent, FeedbackComponent, FooterComponent
   },
   setup() {
+    document.title = "Testmail";
+    const { executeRecaptcha, recaptchaLoaded } = useReCaptcha();
+    const recaptcha = async () => {
+      // (optional) Wait until recaptcha has been loaded.
+      await recaptchaLoaded();
 
-    return {}
-  }
+      // Execute reCAPTCHA with action "login".
+      return await executeRecaptcha('login');
+    }
+    return {
+      recaptcha
+    }
+  },
+  provide() {
+    return {
+      recaptcha: this.recaptcha
+    }
+  },
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>
