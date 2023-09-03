@@ -1,5 +1,11 @@
 # testmail-frontend
 
+🍕 Frontend APP for filtering temporary email/domains
+
+🌚 Prod version(realised with vanilla JS) is available on [testmail.top](https://testmail.top)
+
+🌖 Stage version(realised with [VueJS3](https://vuejs.org/)) is not deployed yet ...but is coming soon🤞
+
 ## Project setup
 ```
 npm install
@@ -19,6 +25,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
