@@ -7,7 +7,7 @@
     <div id="wrapper">
 
       <!-- Check -->
-      <search-component/>
+      <inspect-component/>
 
       <!-- Add domain to BLACKLIST -->
       <blacklist-component/>
@@ -42,7 +42,7 @@ import AboutComponent from "@/components/AboutComponent.vue";
 import ApiComponent from "@/components/ApiComponent.vue";
 import WhitelistComponent from "@/components/WhitelistComponent.vue";
 import BlacklistComponent from "@/components/BlacklistComponent.vue";
-import SearchComponent from "@/components/SearchComponent.vue";
+import InspectComponent from "@/components/InspectComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
 import {useReCaptcha} from "vue-recaptcha-v3";
 
@@ -50,9 +50,14 @@ export default {
   name: "MainPage",
   components: {
     SidebarComponent,
-    SearchComponent,
+    InspectComponent,
     BlacklistComponent,
-    WhitelistComponent, ApiComponent, AboutComponent, DonateComponent, FeedbackComponent, FooterComponent
+    WhitelistComponent,
+    ApiComponent,
+    AboutComponent,
+    DonateComponent,
+    FeedbackComponent,
+    FooterComponent
   },
   setup() {
     document.title = "Testmail";
@@ -70,12 +75,27 @@ export default {
   },
   provide() {
     return {
-      recaptcha: this.recaptcha
+      recaptchaLoaded: this.recaptcha
     }
   },
 }
 </script>
 
-<style scoped>
+<style>
+.response {
+  border-radius: 0.25em;
+  border: solid 1px rgba(255, 255, 255, 0.15);
+  font-family: "Courier New", monospace;
+  font-size: 0.9em;
+  margin: 0 0.25em;
+  padding: 0.25em 0.65em;
+}
 
+.success {
+  background: rgba(0, 255, 0, 0.38);
+}
+
+.failed {
+  background: rgba(255, 0, 0, 0.38);
+}
 </style>

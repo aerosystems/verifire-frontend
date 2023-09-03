@@ -1,23 +1,22 @@
 <template>
-  <section id="check" class="wrapper style1 fullscreen fade-up">
+  <section id="inspect" class="wrapper style1 fullscreen fade-up">
     <div class="inner">
       <div class="features">
         <section>
           <span class="icon solid major fa-lock"></span>
-          <h3 id="blacklistCount">BLACKLIST: {{ blacklistCount }}</h3>
+          <h3>BLACKLIST: {{ blacklistCount }}</h3>
           <p></p>
         </section>
         <section>
           <span class="icon solid major fa-unlock"></span>
-          <h3 id="whitelistCount">WHITELIST: {{ whitelistCount }}</h3>
+          <h3>WHITELIST: {{ whitelistCount }}</h3>
           <p></p>
         </section>
       </div>
       <h1>Input Email or Domain</h1>
       <p>The check is carried out on the basis of temporary (10-minute) mails</p>
       <section>
-        <form method="post" action="#" id="checkRequest">
-          <input type="hidden" name="recaptchaCheck" id="recaptchaCheck"/>
+        <form @submit.prevent="inspect">
           <div class="row gtr-uniform">
 
             <div class="col-6 col-12-xsmall">
@@ -26,12 +25,13 @@
 
             <div class="col-6 col-12-xsmall">
               <ul class="actions">
-                <li><input @click="check" type="submit" value="Check" class="primary"/></li>
+                <li><input type="submit" value="Check" class="primary"/></li>
               </ul>
             </div>
 
             <div class="col-12 col-12-xsmall">
-              <span v-if="searchResponse" class="response success">{{ searchResponse }}</span>
+              <span v-show="searchSuccessResponse" class="response success">{{ searchSuccessResponse }}</span>
+              <span v-show="searchErrorResponse" class="response failed">{{ searchErrorResponse }}</span>
             </div>
 
           </div>
@@ -54,21 +54,21 @@ export default {
       blacklistCount: 0,
       whitelistCount: 0,
       searchInput: '',
-      searchResponse: '',
-      recaptchaToken: '',
+      searchSuccessResponse: '',
+      searchErrorResponse: ''
     }
   },
-  async mounted() {
-    this.recaptchaToken = await this.recaptcha(undefined, undefined)
+  mounted() {
     this.getListCount();
   },
-  inject: ['recaptcha'],
+  inject: ['recaptchaLoaded'],
   methods: {
-    getListCount() {
-      CheckmailService.getCount(this.recaptchaToken).then(
+    async getListCount() {
+      let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
+      CheckmailService.getCount(recaptchaToken).then(
           async response => {
-            const targetBlacklistCount = response.blacklist;
-            const targetWhitelistCount = response.whitelist;
+            const targetBlacklistCount = response.data.data.blacklist;
+            const targetWhitelistCount = response.data.data.whitelist;
 
             // Функція для асинхронного збільшення blacklistCount
             const increaseBlacklistCount = async () => {
@@ -102,35 +102,35 @@ export default {
           }
       );
     },
-    check() {
-      CheckmailService.check(this.searchInput, this.recaptchaToken).then(
+    async inspect() {
+      let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
+      this.searchSuccessResponse = '';
+      this.searchErrorResponse = '';
+
+      CheckmailService.inspect(this.searchInput, recaptchaToken).then(
           response => {
-            this.searchResponse = response.message;
+            this.searchSuccessResponse = response.data.message;
+            setTimeout(() => {
+              this.searchSuccessResponse = '';
+            }, 5000);
           },
           error => {
-            this.searchResponse = error.response.data.message;
+            this.searchErrorResponse =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            setTimeout(() => {
+              this.searchErrorResponse = '';
+            }, 5000);
           }
       );
     }
-  },
+  }
 }
 </script>
 
 <style scoped>
-.response {
-  border-radius: 0.25em;
-  border: solid 1px rgba(255, 255, 255, 0.15);
-  font-family: "Courier New", monospace;
-  font-size: 0.9em;
-  margin: 0 0.25em;
-  padding: 0.25em 0.65em;
-}
 
-.success {
-  background: rgba(183, 255, 0, 0.38);
-}
-
-.failed {
-  background: rgba(255, 0, 0, 0.38);
-}
 </style>

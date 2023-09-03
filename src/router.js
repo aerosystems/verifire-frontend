@@ -1,8 +1,8 @@
 import {createWebHistory, createRouter} from "vue-router";
-import MainPage from "./components/MainPage.vue";
-import SigninPage from "./components/SigninPage.vue";
-import SignupPage from "./components/SignupPage.vue";
-import BillingPage from "@/components/BillingPage.vue";
+import MainPage from "./components/pages/MainPage.vue";
+import SigninPage from "./components/pages/SigninPage.vue";
+import SignupPage from "./components/pages/SignupPage.vue";
+import BillingPage from "@/components/pages/BillingPage.vue";
 import RecoveryPage from "@/components/RecoveryPage.vue";
 import AuthService from "@/services/auth.service";
 

@@ -7,7 +7,7 @@
             <router-link to="/signin"><font-awesome-icon icon="sign-in-alt"/> Sign In</router-link>
           </li>
           <li>
-            <router-link to="/#check">Check</router-link>
+            <router-link to="/#inspect">Inspect</router-link>
           </li>
           <li>
             <router-link to="/#blacklist">Add Blacklist</router-link>

@@ -3,20 +3,20 @@
     <div class="inner">
       <section>
         <h1>Add domain to BLACKLIST</h1>
-        <form method="post" action="#" id="addBlacklistRequest">
-          <input type="hidden" name="recaptchaAdd" id="recaptchaAddBlacklist"/>
-          <input type="hidden" name="type" value="blacklist"/>
+        <form @submit.prevent="addDomainToBlacklist">
           <div class="row gtr-uniform">
             <div class="col-6 col-12-xsmall">
-              <input type="text" name="domain" id="domainBlacklist" value="" placeholder="Input domain"/>
+              <input v-model="blacklistInput" type="text" name="domain" placeholder="Input domain"/>
             </div>
             <div class="col-6 col-12-xsmall">
               <ul class="actions">
-                <li><input type="submit" value="add to blacklist" id="interactionAddBlacklist" class="primary"/>
+                <li><input type="submit" value="add to blacklist" class="primary"/>
                 </li>
               </ul>
             </div>
-            <div class="col-12 col-12-xsmall" id="addBlacklistResponse">
+            <div class="col-12 col-12-xsmall">
+              <span v-show="blacklistSuccessResponse" class="response success">{{ blacklistSuccessResponse }}</span>
+              <span v-show="blacklistErrorResponse" class="response failed">{{ blacklistErrorResponse }}</span>
             </div>
           </div>
         </form>
@@ -26,13 +26,50 @@
 </template>
 
 <script>
+import CheckmailService from "@/services/checkmail.service";
 export default {
   name: 'BlacklistComponent',
-  el: '#addBlacklist',
   setup() {
-
-
     return {}
+  },
+  data() {
+    return {
+      blacklistInput: '',
+      blacklistSuccessResponse: '',
+      blacklistErrorResponse: ''
+    }
+  },
+  inject: ['recaptchaLoaded'],
+  methods: {
+    async addDomainToBlacklist() {
+      let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
+      this.blacklistSuccessResponse = '';
+      this.blacklistErrorResponse = '';
+      let data = {
+        "name": this.blacklistInput,
+        "type": "blacklist"
+      }
+      CheckmailService.setFilter(data, recaptchaToken).then(
+          response => {
+            console.log(response.data.message);
+            this.blacklistSuccessResponse = response.data.message;
+            setTimeout(() => {
+              this.blacklistSuccessResponse = '';
+            }, 5000);
+          },
+          error => {
+            this.blacklistErrorResponse =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            setTimeout(() => {
+              this.blacklistErrorResponse = '';
+            }, 5000);
+          }
+      )
+    }
   }
 }
 </script>
