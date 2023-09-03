@@ -5,15 +5,20 @@
         <div class="inner">
           <h2>API: Check Domain/Email mailbox address</h2>
           <p>
-            URL: <code style="word-wrap: break-word;">https://api.testmail.top/domain/check</code>
+            Endpoint: <code style="word-wrap: break-word;">https://api.testmail.top/v1/data/inspect</code>
             <br>
-            Method: <code>GET</code>
+            Method: <code>POST</code>
             <br>
-            Example request: <code style="word-wrap: break-word;">https://api.testmail.top/domain/check/data=example@mail.com&ip=8.8.8.8</code>
+            Headers: <code>X-Api-Key: XXXXXXXXXX</code>
             <br>
-            Headers: <code>Authorization: Bearer XXXXXXXXXX.XXXXXXXXXX.XXXXXXXXXX</code>
+            Parameter content type: <code>application/json</code>
+            <br>
+            Example JSON request body:
+            <code style="word-wrap: break-word;">
+              {"data": "example@mail.com", "clientIp": "8.8.8.8"}
+            </code>
           </p>
-          <h3>Parameters of request</h3>
+          <h3>Parameters of request(body)</h3>
           <div class="table-wrapper">
             <table class="alt">
               <thead>
@@ -28,7 +33,7 @@
                 <td>Domain or full Email address</td>
               </tr>
               <tr>
-                <td>ip</td>
+                <td>clientIp</td>
                 <td>Optional parameter. The IP address of the client that sends the request to your resource is
                   required for a more detailed display of statistics
                 </td>
@@ -47,9 +52,8 @@
               </thead>
               <tbody>
               <tr>
-                <td>Authorization</td>
-                <td>Bearer authentication, your unique <a href="https://jwt.io/" target="_blank">JWT</a> token,
-                  which is an API key, you can get by <a href="/signin">Registering</a> in your <a href="/project">Personal
+                <td>X-Api-Key</td>
+                <td>API key. You can get after <a href="/signin">Registering</a> and login in your <a href="/billing">Personal
                     Account</a></td>
               </tr>
               </tbody>
@@ -57,7 +61,7 @@
           </div>
 
           <ul class="actions">
-            <li><a href="/example" class="primary button">More details</a></li>
+            <li><a href="/usage" class="primary button">More details</a></li>
             <li><a href="/signin" class="button">Get API key</a></li>
           </ul>
         </div>

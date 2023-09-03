@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     redirectToMonobank() {
-      window.location.href = 'https://send.monobank.ua/jar/6Z6wF8CZxB';
+      window.location.href = 'https://send.monobank.ua/jar/35w3wDBesR';
     }
   }
 }

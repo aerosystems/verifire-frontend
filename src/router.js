@@ -3,7 +3,7 @@ import MainPage from "./components/pages/MainPage.vue";
 import SigninPage from "./components/pages/SigninPage.vue";
 import SignupPage from "./components/pages/SignupPage.vue";
 import BillingPage from "@/components/pages/BillingPage.vue";
-import RecoveryPage from "@/components/RecoveryPage.vue";
+import RecoveryPage from "@/components/pages/RecoveryPage.vue";
 import AuthService from "@/services/auth.service";
 
 const routes = [
