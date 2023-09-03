@@ -1,22 +1,22 @@
 <template>
-  <section id="whitelist" class="wrapper style1 fullscreen fade-up">
+  <section id="whitelist" class="wrapper style1 fullscreen fade-up custom-section">
     <div class="inner">
       <section>
         <h1>Add domain to WHITELIST</h1>
-        <form method="post" action="#" id="addWhitelistRequest">
-          <input type="hidden" name="recaptchaAdd" id="recaptchaAddWhitelist"/>
-          <input type="hidden" name="type" value="whitelist"/>
+        <form @submit.prevent="addDomainToWhitelist">
           <div class="row gtr-uniform">
             <div class="col-6 col-12-xsmall">
-              <input type="text" name="domain" id="domainWhitelist" value="" placeholder="Input domain"/>
+              <input v-model="whitelistInput" type="text" name="domain" placeholder="Input domain"/>
             </div>
             <div class="col-6 col-12-xsmall">
               <ul class="actions">
-                <li><input type="submit" value="add to whitelist" id="interactionAddWhitelist" class="primary"/>
+                <li><input type="submit" value="add to whitelist" class="primary"/>
                 </li>
               </ul>
             </div>
-            <div class="col-12 col-12-xsmall" id="addWhitelistResponse">
+            <div class="col-12 col-12-xsmall">
+              <span v-show="whitelistSuccessResponse" class="response success">{{ whitelistSuccessResponse }}</span>
+              <span v-show="whitelistErrorResponse" class="response failed">{{ whitelistErrorResponse }}</span>
             </div>
           </div>
         </form>
@@ -26,16 +26,58 @@
 </template>
 
 <script>
+import CheckmailService from "@/services/checkmail.service";
 export default {
   name: 'WhitelistComponent',
   setup() {
-
-
     return {}
+  },
+  data() {
+    return {
+      whitelistInput: '',
+      whitelistSuccessResponse: '',
+      whitelistErrorResponse: ''
+    }
+  },
+  inject: ['recaptchaLoaded'],
+  methods: {
+    async addDomainToWhitelist() {
+      let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
+      this.whitelistSuccessResponse = '';
+      this.whitelistErrorResponse = '';
+      let data = {
+        "name": this.whitelistInput,
+        "type": "whitelist"
+      }
+      CheckmailService.setFilter(data, recaptchaToken).then(
+          response => {
+            console.log(response.data.message);
+            this.whitelistSuccessResponse = response.data.message;
+            setTimeout(() => {
+              this.whitelistSuccessResponse = '';
+            }, 5000);
+          },
+          error => {
+            this.whitelistErrorResponse =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            setTimeout(() => {
+              this.whitelistErrorResponse = '';
+            }, 5000);
+          }
+      )
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+
+#whitelist {
+  background-color: #1f7079;
+}
 
 </style>

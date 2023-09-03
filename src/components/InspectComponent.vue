@@ -1,5 +1,5 @@
 <template>
-  <section id="inspect" class="wrapper style1 fullscreen fade-up">
+  <section id="inspect" class="wrapper style1 fullscreen fade-up custom-section">
     <div class="inner">
       <div class="features">
         <section>
@@ -131,6 +131,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

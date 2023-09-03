@@ -1,5 +1,5 @@
 <template>
-  <section id="blacklist" class="wrapper style1 fullscreen fade-up">
+  <section id="blacklist" class="wrapper style1 fullscreen fade-up custom-section">
     <div class="inner">
       <section>
         <h1>Add domain to BLACKLIST</h1>
@@ -74,6 +74,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+
+#blacklist {
+  background-color: #b74e91;
+}
 
 </style>

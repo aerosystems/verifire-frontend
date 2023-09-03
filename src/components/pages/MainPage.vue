@@ -46,6 +46,10 @@ import InspectComponent from "@/components/InspectComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
 import {useReCaptcha} from "vue-recaptcha-v3";
 
+import '@/assets/css/fontawesome-all.min.css';
+import '@/assets/css/noscript.css';
+import '@/assets/css/main.css';
+
 export default {
   name: "MainPage",
   components: {
@@ -97,5 +101,35 @@ export default {
 
 .failed {
   background: rgba(255, 0, 0, 0.38);
+}
+
+.custom-section {
+  background-attachment: fixed;
+  background-image: url("@/assets/css/images/intro.svg");
+  background-position: top right;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.custom-section p {
+  font-size: 1.25em;
+}
+
+@media screen and (max-width: 980px) {
+  .custom-section p br {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 736px) {
+  .custom-section p {
+    font-size: 1em;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .custom-section {
+    background-attachment: scroll;
+  }
 }
 </style>
