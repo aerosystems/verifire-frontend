@@ -48,6 +48,29 @@ export const auth = {
                 }
             );
         },
+        recovery({ commit }, {user, token}) {
+            return AuthService.recovery(user, token).then(
+                function (response) {
+                    commit('recoverySuccess');
+                    return Promise.resolve(response.data);
+                },
+                function (error) {
+                    commit('recoveryFailure');
+                    return Promise.reject(error);
+                }
+            );
+        },
+        confirm({ commit }, {data, token}) {
+            return AuthService.confirm(data, token).then(
+                function (response) {
+                    commit('confirmSuccess');
+                    return Promise.resolve(response.data);
+                },
+                function (error) {
+                    commit('confirmFailure');
+                    return Promise.reject(error);
+                });
+        },
         updateTokens({ commit }, accessToken, refreshToken) {
             commit('updateTokens', accessToken, refreshToken);
         }
@@ -69,6 +92,18 @@ export const auth = {
             state.status.loggedIn = false;
         },
         registerFailure(state) {
+            state.status.loggedIn = false;
+        },
+        recoverySuccess(state) {
+            state.status.loggedIn = false;
+        },
+        recoveryFailure(state) {
+            state.status.loggedIn = false;
+        },
+        confirmSuccess(state) {
+            state.status.loggedIn = false;
+        },
+        confirmFailure(state) {
             state.status.loggedIn = false;
         },
         updateTokens(state, accessToken, refreshToken) {

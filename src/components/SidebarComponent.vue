@@ -4,7 +4,7 @@
       <nav>
         <ul>
           <li>
-            <router-link to="/signin"><font-awesome-icon icon="sign-in-alt"/> Sign In</router-link>
+            <router-link to="/auth/signin"><font-awesome-icon icon="sign-in-alt"/> Sign In</router-link>
           </li>
           <li>
             <router-link to="/#inspect">Inspect</router-link>

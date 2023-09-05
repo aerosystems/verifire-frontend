@@ -6,7 +6,8 @@ import AuthPage from "@/components/pages/AuthPage.vue";
 import SignupForm from "@/components/auth/SignupForm.vue";
 import SigninForm from "@/components/auth/SigninForm.vue";
 import RecoveryForm from "@/components/auth/RecoveryForm.vue";
-import ConfirmForm from "@/components/auth/ConfirmForm.vue";
+import SignupConfirm from "@/components/auth/SignupConfirm.vue";
+import RecoveryConfirm from "@/components/auth/RecoveryConfirm.vue";
 
 const routes = [
     {
@@ -35,19 +36,35 @@ const routes = [
             {
                 path: "signup",
                 name: "auth-signup",
-                component: SignupForm,
+                children: [
+                    {
+                        path: "",
+                        name: "auth-signup-default",
+                        component: SignupForm,
+                    },
+                    {
+                        path: "confirm",
+                        name: "auth-signup-confirm",
+                        component: SignupConfirm,
+                    }
+                ]
             },
             {
                 path: "recovery",
                 name: "auth-recovery",
-                component: RecoveryForm,
+                children: [
+                    {
+                        path: "",
+                        name: "auth-recovery-default",
+                        component: RecoveryForm,
+                    },
+                    {
+                        path: "confirm",
+                        name: "auth-recovery-confirm",
+                        component: RecoveryConfirm,
+                    }
+                ]
             },
-            {
-                path: "confirm",
-                name: "auth-confirm",
-                component: ConfirmForm,
-            }
-
         ]
     },
     {

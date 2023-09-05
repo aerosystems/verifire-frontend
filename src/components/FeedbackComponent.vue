@@ -11,17 +11,17 @@
               <div class="field half">
                 <label for="name">Name</label>
                 <Field type="text" name="name"/>
-                <ErrorMessage name="name" class="error-feedback"/>
+                <ErrorMessage name="name" class="response failed"/>
               </div>
               <div class="field half">
                 <label for="email">Email</label>
                 <Field type="text" name="email"/>
-                <ErrorMessage name="email" class="error-feedback"/>
+                <ErrorMessage name="email" class="response failed"/>
               </div>
               <div class="field">
                 <label for="message">Message</label>
                 <Field as="textarea" name="message" rows="5"/>
-                <ErrorMessage name="message" class="error-feedback"/>
+                <ErrorMessage name="message" class="response failed"/>
               </div>
             </div>
             <ul class="actions">

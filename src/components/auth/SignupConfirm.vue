@@ -3,11 +3,14 @@
     <div>
       <div @click="this.$router.push({name: 'main'});" class="close"></div>
     </div>
+    <div>
+      <code>Enter the 6-Digit Code from Your Email</code>
+    </div>
     <Form @submit="handleConfirm" :validation-schema="schema">
       <ul class="actions stacked">
         <li>
           <Field name="code" type="text" placeholder="Code"/>
-          <ErrorMessage name="code" class="error-feedback"/>
+          <ErrorMessage name="code" class="response failed"/>
         </li>
         <li>
           <div v-show="errorResponse" class="response failed">
@@ -39,14 +42,14 @@ import * as yup from "yup";
 import router from "@/router";
 
 export default {
-  name: "ConfirmPage",
+  name: "SignupConfirm",
   components: {
     Form,
     Field,
     ErrorMessage,
   },
   setup() {
-    document.title = "Confirm";
+    document.title = "Confirm Sign Up";
     const {executeRecaptcha, recaptchaLoaded} = useReCaptcha();
     const recaptcha = async () => {
       // (optional) Wait until recaptcha has been loaded.
@@ -77,12 +80,12 @@ export default {
     };
   },
   methods: {
-    async handleConfirm(user) {
+    async handleConfirm(data) {
       this.loading = true;
 
       let token = await this.recaptcha(undefined, undefined);
 
-      this.$store.dispatch("auth/confirm", {user, token}).then(
+      this.$store.dispatch("auth/confirm", {data, token}).then(
           () => {
             router.push({name: "auth-signin"});
           },
@@ -96,7 +99,7 @@ export default {
                 error.toString();
             setInterval(() => {
               this.errorResponse = "";
-            }, 5000);
+            }, 3000);
           }
       );
     },
@@ -105,4 +108,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+div.form-inner {
+  background-color: #b74e91;
+}
 </style>

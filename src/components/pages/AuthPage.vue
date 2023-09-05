@@ -116,6 +116,7 @@ div.form-inner {
   width: 500px;
   padding: 22px;
   border-radius: 3px;
+  background-color: #5e42a6;
 }
 
 .center-container {

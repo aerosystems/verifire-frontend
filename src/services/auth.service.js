@@ -17,10 +17,6 @@ class AuthService {
                     if (response.data.data.accessToken) {
                         TokenService.setUser(response.data.data);
                     }
-                    return response.data.data;
-                },
-                (error) => {
-                    return Promise.reject(error);
                 }
             );
     }
@@ -55,6 +51,33 @@ class AuthService {
                     email,
                     password,
                     role
+                },
+                {
+                    headers: {
+                        'X-Recaptcha-V3-Token': token
+                    }
+                });
+    }
+
+    recovery({email, password}, token) {
+        return api
+            .post("/auth/v1/user/reset-password",
+                {
+                    email,
+                    password
+                },
+                {
+                    headers: {
+                        'X-Recaptcha-V3-Token': token
+                    }
+                });
+    }
+
+    confirm({code}, token) {
+        return api
+            .post("/auth/v1/user/confirm",
+                {
+                    code
                 },
                 {
                     headers: {
