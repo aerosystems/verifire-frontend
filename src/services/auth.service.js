@@ -8,10 +8,10 @@ class AuthService {
                 email,
                 password
             }, {
-                    headers: {
-                        'X-Recaptcha-V3-Token': token
-                    }
-                })
+                headers: {
+                    'X-Recaptcha-V3-Token': token
+                }
+            })
             .then(
                 (response) => {
                     if (response.data.data.accessToken) {
@@ -48,12 +48,18 @@ class AuthService {
         }
     }
 
-    register({email, password}) {
+    register({email, password}, token) {
         return api
-            .post("/auth/v1/user/register", {
-                email,
-                password
-            });
+            .post("/auth/v1/user/register",
+                {
+                    email,
+                    password
+                },
+                {
+                    headers: {
+                        'X-Recaptcha-V3-Token': token
+                    }
+                });
     }
 }
 

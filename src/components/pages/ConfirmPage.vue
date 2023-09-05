@@ -4,7 +4,7 @@
       <div>
         <div @click="this.$router.push({name: 'main'});" class="close"></div>
       </div>
-      <Form @submit="handleLogin" :validation-schema="schema">
+      <Form @submit="handleRegister" :validation-schema="schema">
         <ul class="actions stacked">
           <li>
             <Field name="email" type="text" placeholder="Email"/>
@@ -13,6 +13,9 @@
           <li>
             <Field name="password" type="password" placeholder="Password"/>
             <ErrorMessage name="password" class="error-feedback"/>
+          </li>
+          <li>
+            <Field name="rePassword" type="password" placeholder="Retype password"/>
           </li>
           <li>
             <div v-if="message" class="error-feedback">
@@ -27,7 +30,7 @@
               <button class="button submit primary" :disabled="loading">Next</button>
             </li>
             <li>
-              <router-link to="/signup" class="button">Sign Up</router-link>
+              <router-link to="/signin" class="button">Sign In</router-link>
             </li>
           </ul>
         </div>
@@ -46,14 +49,14 @@ import * as yup from "yup";
 import router from "@/router";
 
 export default {
-  name: "SigninPage",
+  name: "SignupPage",
   components: {
     Form,
     Field,
     ErrorMessage,
   },
   setup() {
-    document.title = "Sign In";
+    document.title = "Sign Up";
     const {executeRecaptcha, recaptchaLoaded} = useReCaptcha();
     const recaptcha = async () => {
       // (optional) Wait until recaptcha has been loaded.
@@ -89,6 +92,10 @@ export default {
           )
           .min(8, "Must be at least 8 characters!")
           .max(128, "Must be maximum 128 characters!"),
+      rePassword: yup
+          .string()
+          .required("Retype password is required!")
+          .oneOf([yup.ref("password"), null], "Passwords must match!"),
     });
     return {
       loading: false,
@@ -107,12 +114,12 @@ export default {
     }
   },
   methods: {
-    async handleLogin(user) {
+    async handleRegister(user) {
       this.loading = true;
 
       let token = await this.recaptcha(undefined, undefined);
 
-      this.$store.dispatch("auth/login", {user, token}).then(
+      this.$store.dispatch("auth/register", {user, token}).then(
           () => {
             router.push({name: "billing"});
           },
@@ -142,6 +149,7 @@ export default {
 </script>
 
 <style scoped>
+
 form {
   margin: 0.5em 0 0.5em 0 !important;
 }
@@ -195,7 +203,7 @@ div.form-inner {
   width: 500px;
   padding: 22px;
   border-radius: 3px;
-  background-color: #5e42a6;
+  background-color: #b74e91;
 }
 
 .center-container {
