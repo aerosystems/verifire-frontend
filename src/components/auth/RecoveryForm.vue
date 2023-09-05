@@ -15,5 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+div.form-inner {
+  background-color: #1f7079;
+}
 </style>

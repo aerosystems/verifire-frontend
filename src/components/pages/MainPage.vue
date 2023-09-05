@@ -85,7 +85,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .response {
   border-radius: 0.25em;
   border: solid 1px rgba(255, 255, 255, 0.15);

@@ -48,12 +48,13 @@ class AuthService {
         }
     }
 
-    register({email, password}, token) {
+    register({email, password, role}, token) {
         return api
             .post("/auth/v1/user/register",
                 {
                     email,
-                    password
+                    password,
+                    role
                 },
                 {
                     headers: {
