@@ -31,21 +31,17 @@
 </template>
 
 <script>
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+
 export default {
   name: 'SidebarComponent',
+  components: {FontAwesomeIcon},
   setup() {
 
 
     return {}
   },
   methods: {
-    scrollToElement(targetId) {
-      const el = document.getElementById(targetId.value);
-
-      if (el) {
-        el.scrollIntoView();
-      }
-    }
   },
 }
 </script>
