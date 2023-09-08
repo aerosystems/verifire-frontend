@@ -51,7 +51,6 @@ export default {
       }
       CheckmailService.setFilter(data, recaptchaToken).then(
           response => {
-            console.log(response.data.message);
             this.blacklistSuccessResponse = response.data.message;
             setTimeout(() => {
               this.blacklistSuccessResponse = '';

@@ -96,9 +96,6 @@ export default {
 
             // Запускаємо обидві функції асинхронно
             await Promise.all([increaseBlacklistCount(), increaseWhitelistCount()]);
-          },
-          error => {
-            console.log(error);
           }
       );
     },

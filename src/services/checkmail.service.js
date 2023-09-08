@@ -28,11 +28,6 @@ class CheckmailService {
     }
 
     setFilter(data, recaptchaToken) {
-        console.log({
-            "name": data.name,
-            "type": data.type,
-            "coverage": "equals",
-        });
         return api
             .post("/checkmail/v1/filters",
                 {
