@@ -9,6 +9,9 @@
       <!-- Project -->
       <project-component/>
 
+      <!-- Swagger -->
+      <swagger-component/>
+
       <!-- Donate -->
       <donate-component/>
     </div>
@@ -17,6 +20,7 @@
     <footer-component/>
 
   </div>
+
 </template>
 
 <script>
@@ -24,9 +28,11 @@ import DonateComponent from "@/components/DonateComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import ProjectComponent from "@/components/ProjectComponent.vue";
+import SwaggerComponent from "@/components/SwaggerComponent.vue";
 
 export default {
   components: {
+    SwaggerComponent,
     ProjectComponent,
     FooterComponent,
     SidebarComponent,
