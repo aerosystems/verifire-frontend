@@ -1,13 +1,15 @@
 import {createWebHistory, createRouter} from "vue-router";
+import store from "@/store";
 import MainPage from "./components/pages/MainPage.vue";
 import BillingPage from "@/components/pages/BillingPage.vue";
 import AuthPage from "@/components/pages/AuthPage.vue";
+import UsagePage from "@/components/pages/UsagePage.vue";
 import SignupForm from "@/components/auth/SignupForm.vue";
 import SigninForm from "@/components/auth/SigninForm.vue";
 import RecoveryForm from "@/components/auth/RecoveryForm.vue";
 import SignupConfirm from "@/components/auth/SignupConfirm.vue";
 import RecoveryConfirm from "@/components/auth/RecoveryConfirm.vue";
-import store from "@/store";
+import DeprecatedUsagePage from "@/components/pages/DeprecatedUsagePage.vue";
 
 const routes = [
     {
@@ -81,6 +83,16 @@ const routes = [
         path: "/billing",
         name: "billing",
         component: BillingPage,
+    },
+    {
+        path: "/usage",
+        name: "usage",
+        component: UsagePage,
+    },
+    {
+        path: "/deprecated",
+        name: "deprecated",
+        component: DeprecatedUsagePage,
     },
     {
         path: "/:catchAll(.*)",

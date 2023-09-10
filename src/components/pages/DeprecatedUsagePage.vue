@@ -253,10 +253,6 @@ echo $response;
               <td>36</td>
               <td>"No mail server is attached to this domain" - mailbox domain is unable to receive emails</td>
             </tr>
-            <tr>
-              <td>37</td>
-              <td>"Incoming data is too long" - too long string</td>
-            </tr>
             </tbody>
           </table>
         </div>
