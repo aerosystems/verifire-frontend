@@ -7,10 +7,11 @@
           <section>
             <div v-for="project in projectListState" :key="project.id" class="row">
                 <div class="col-10">
+                  <h3>{{ project.name }}</h3>
                   <pre><code>{{ project.token }}</code></pre>
                 </div>
                 <div class="col-2">
-                  <button @click="copyToken(project.token)" class="button">
+                  <button @click="copyToken(project.token)" class="button down">
                     <font-awesome-icon icon="fa-copy"/>
                     Copy
                   </button>
@@ -64,5 +65,8 @@ export default {
 <style lang="scss" scoped>
 .container {
   margin: 0;
+}
+.down {
+  margin-top: 3.6em;
 }
 </style>

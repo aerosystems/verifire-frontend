@@ -2,7 +2,10 @@
   <section id="sidebar">
     <div class="inner">
       <nav>
-        <ul v-if="userStatusState.loggedIn">
+        <ul v-if="userStatusState">
+          <li v-if="userState" class="gradient-email">
+            {{ userState.email }}
+          </li>
           <li>
             <router-link to="/billing#apikey">API Key</router-link>
           </li>
@@ -66,11 +69,17 @@ export default {
   computed: {
     ...mapState({
       userStatusState: state => state.auth.status,
+      userState: state => state.user.user,
     })
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.gradient-email {
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  background-image: linear-gradient(to right, #5e42a6, #b74e91);
+}
 </style>

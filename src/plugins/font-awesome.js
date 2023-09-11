@@ -2,11 +2,15 @@ import {library} from "@fortawesome/fontawesome-svg-core";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {
     faSignInAlt,
-    faCopy
+    faCopy,
+    faUser,
+    faUserAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
     faSignInAlt,
-    faCopy
+    faCopy,
+    faUser,
+    faUserAlt
     );
 export {FontAwesomeIcon};

@@ -10,7 +10,7 @@
       <project-component/>
 
       <!-- Swagger -->
-      <swagger-component/>
+      <!--      <swagger-component/>-->
 
       <!-- Donate -->
       <donate-component/>
@@ -28,11 +28,11 @@ import DonateComponent from "@/components/DonateComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import ProjectComponent from "@/components/ProjectComponent.vue";
-import SwaggerComponent from "@/components/SwaggerComponent.vue";
+// import SwaggerComponent from "@/components/SwaggerComponent.vue";
 
 export default {
   components: {
-    SwaggerComponent,
+    // SwaggerComponent,
     ProjectComponent,
     FooterComponent,
     SidebarComponent,
@@ -42,6 +42,14 @@ export default {
     document.title = "Testmail";
 
     return {}
+  },
+  methods: {
+    setUser() {
+      this.$store.dispatch('user/setUser');
+    }
+  },
+  beforeMount() {
+    this.setUser();
   }
 }
 </script>
