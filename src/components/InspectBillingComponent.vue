@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper style1 spotlights">
+  <section class="wrapper style5 spotlights">
     <section>
       <div class="content">
         <div class="inner">

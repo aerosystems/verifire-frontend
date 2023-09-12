@@ -1,5 +1,5 @@
 <template>
-  <section id="whitelist" class="wrapper style1 fullscreen fade-up custom-section">
+  <section id="whitelist" class="wrapper style4 fullscreen fade-up custom-section">
     <div class="inner">
       <section>
         <h1>Add domain to WHITELIST</h1>
@@ -75,10 +75,6 @@ export default {
 }
 </script>
 
-<style scoped>
-
-#whitelist {
-  background-color: #1f7079;
-}
+<style lang="scss" scoped>
 
 </style>

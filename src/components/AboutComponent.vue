@@ -1,5 +1,5 @@
 <template>
-  <section id="whatwedo" class="wrapper style3 fade-up">
+  <section id="whatwedo" class="wrapper style6 fade-up">
     <div class="inner">
       <h2>What we do</h2>
       <p><a href="https://testmail.top/">Testmail.top</a> is a service for checking mail domains and addresses of
