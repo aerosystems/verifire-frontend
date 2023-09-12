@@ -49,11 +49,12 @@ export default {
         "name": this.whitelistInput,
         "type": "whitelist"
       }
-      CheckmailService.setFilter(data, recaptchaToken).then(
+      CheckmailService.setFilterReview(data, recaptchaToken).then(
           response => {
             this.whitelistSuccessResponse = response.data.message;
             setTimeout(() => {
               this.whitelistSuccessResponse = '';
+              this.whitelistInput = '';
             }, 5000);
           },
           error => {
@@ -65,6 +66,7 @@ export default {
                 error.toString();
             setTimeout(() => {
               this.whitelistErrorResponse = '';
+              this.whitelistInput = '';
             }, 5000);
           }
       )

@@ -27,7 +27,23 @@ class CheckmailService {
             )
     }
 
-    setFilter(data, recaptchaToken) {
+    setFilterReview(data, recaptchaToken) {
+        return api
+            .post("/checkmail/v1/filter/review",
+                {
+                    "name": data.name,
+                    "type": data.type,
+                    "coverage": "equals",
+                },
+                {
+                    headers: {
+                        'X-Recaptcha-V3-Token': recaptchaToken
+                    }
+                }
+            )
+    }
+
+    setFilter(data, key) {
         return api
             .post("/checkmail/v1/filters",
                 {
@@ -37,7 +53,7 @@ class CheckmailService {
                 },
                 {
                     headers: {
-                        'X-Recaptcha-V3-Token': recaptchaToken
+                        'X-Api-Key': key
                     }
                 }
             )
