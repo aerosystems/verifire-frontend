@@ -2,26 +2,26 @@ import AuthService from '../services/auth.service';
 import TokenService from "@/services/token.service";
 
 const user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? { status: { loggedIn: true }, user } : { status: { loggedIn: false }, user: null };
+const initialState = user ? {status: {loggedIn: true}, user} : {status: {loggedIn: false}, user: null};
 
 export const auth = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({ commit }, {user, token}) {
+        login({commit}, {user, token}) {
             return AuthService.login(user, token)
                 .then(
-                function (user) {
-                    commit('loginSuccess', user);
-                    return Promise.resolve(user);
-                },
-                function (error) {
-                    commit('loginFailure');
-                    return Promise.reject(error);
-                }
-            );
+                    function (user) {
+                        commit('loginSuccess', user);
+                        return Promise.resolve(user);
+                    },
+                    function (error) {
+                        commit('loginFailure');
+                        return Promise.reject(error);
+                    }
+                );
         },
-        logout({ commit }) {
+        logout({commit}) {
             if (TokenService.getLocalAccessToken() != null) {
                 return AuthService.logout().then(
                     function (response) {
@@ -35,7 +35,7 @@ export const auth = {
                 );
             }
         },
-        register({ commit }, {user, token}) {
+        register({commit}, {user, token}) {
             return AuthService.register(user, token).then(
                 function (response) {
                     commit('registerSuccess');
@@ -47,7 +47,7 @@ export const auth = {
                 }
             );
         },
-        recovery({ commit }, {user, token}) {
+        recovery({commit}, {user, token}) {
             return AuthService.recovery(user, token).then(
                 function (response) {
                     commit('recoverySuccess');
@@ -59,7 +59,7 @@ export const auth = {
                 }
             );
         },
-        confirm({ commit }, {data, token}) {
+        confirm({commit}, {data, token}) {
             return AuthService.confirm(data, token).then(
                 function (response) {
                     commit('confirmSuccess');
@@ -70,8 +70,11 @@ export const auth = {
                     return Promise.reject(error);
                 });
         },
-        updateTokens({ commit }, accessToken, refreshToken) {
+        updateTokens({commit}, accessToken, refreshToken) {
             commit('updateTokens', accessToken, refreshToken);
+        },
+        loggedIn({state}) {
+            return Promise.resolve(state.status.loggedIn);
         }
     },
     mutations: {
@@ -107,7 +110,7 @@ export const auth = {
         },
         updateTokens(state, accessToken, refreshToken) {
             state.status.loggedIn = true;
-            state.user = { ...state.user, accessToken: accessToken, refreshToken: refreshToken };
+            state.user = {...state.user, accessToken: accessToken, refreshToken: refreshToken};
         }
     }
 };

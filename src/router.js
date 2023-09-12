@@ -16,6 +16,12 @@ const routes = [
         path: "/",
         name: "main",
         component: MainPage,
+        beforeEnter: (to, from, next) => {
+            store.dispatch('auth/loggedIn').then(result => {
+                if (!result) next();
+                next({name: "billing"});
+            });
+        }
     },
     {
         path: "/auth",
@@ -83,6 +89,12 @@ const routes = [
         path: "/billing",
         name: "billing",
         component: BillingPage,
+        beforeEnter: (to, from, next) => {
+            store.dispatch('auth/loggedIn').then(result => {
+                if (result) next();
+                next({name: "auth-signin"});
+            });
+        }
     },
     {
         path: "/usage",
