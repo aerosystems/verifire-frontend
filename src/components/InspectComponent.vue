@@ -103,7 +103,7 @@ export default {
       this.searchSuccessResponse = '';
       this.searchErrorResponse = '';
 
-      CheckmailService.inspect(this.searchInput, recaptchaToken).then(
+      CheckmailService.inspectPublic(this.searchInput, recaptchaToken).then(
           response => {
             this.searchSuccessResponse = response.data.message;
             setTimeout(() => {

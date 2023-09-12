@@ -1,4 +1,5 @@
 import api from "./api";
+import apiService from "./apiService";
 
 class CheckmailService {
 
@@ -13,7 +14,7 @@ class CheckmailService {
                 })
     }
 
-    inspect(data, recaptchaToken) {
+    inspectPublic(data, recaptchaToken) {
         return api
             .post("/checkmail/v1/data/inspect",
                 {
@@ -25,6 +26,21 @@ class CheckmailService {
                     }
                 }
             )
+    }
+
+    inspectPrivate(data, apiKey) {
+        return apiService
+            .post("/v1/data/inspect",
+                {
+                    "data": data
+                },
+                {
+                    headers: {
+                        'X-Api-Key': apiKey
+                    }
+                }
+            )
+
     }
 
     setFilterReview(data, recaptchaToken) {

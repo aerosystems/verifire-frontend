@@ -54,7 +54,7 @@ import CheckmailService from "@/services/checkmail.service";
 import {mapState} from "vuex";
 
 export default {
-  name: 'BlacklistBillingComponent',
+  name: 'FineTuningComponent',
   setup() {
     return {}
   },
