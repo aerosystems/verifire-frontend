@@ -2,7 +2,7 @@
   <section id="sidebar">
     <div class="inner">
       <nav>
-        <ul v-if="userStatusState">
+        <ul v-if="userStatusState.loggedIn">
           <li v-if="userState" class="gradient-email">
             {{ userState.email }}
           </li>
@@ -10,13 +10,10 @@
             <router-link to="/billing#apikey">API Key</router-link>
           </li>
           <li>
+            <router-link to="/billing#fine-tuning">Fine-tuning</router-link>
+          </li>
+          <li>
             <router-link to="/billing#inspect">Inspect</router-link>
-          </li>
-          <li>
-            <router-link to="/billing#blacklist">Add Blacklist</router-link>
-          </li>
-          <li>
-            <router-link to="/billing#whitelist">Add Whitelist</router-link>
           </li>
           <li>
             <router-link to="/billing#donate">Donate</router-link>
@@ -71,7 +68,7 @@ export default {
       userStatusState: state => state.auth.status,
       userState: state => state.user.user,
     })
-  }
+  },
 }
 </script>
 

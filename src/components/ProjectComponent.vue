@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper style3 spotlights">
+  <section id="apikey" class="wrapper style3 spotlights">
     <section>
       <div class="content">
         <div class="inner">

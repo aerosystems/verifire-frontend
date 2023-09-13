@@ -1,5 +1,5 @@
 <template>
-  <section class="wrapper style5 spotlights">
+  <section id="inspect" class="wrapper style5 spotlights">
     <section>
       <div class="content">
         <div class="inner">
@@ -9,7 +9,7 @@
             <form @submit.prevent="inspect">
               <div class="row gtr-uniform">
                 <div class="col-10 col-12-xsmall">
-                  <input v-model="inspectInput" type="text" name="domain" placeholder="Input domain"/>
+                  <input v-model="inspectInput" type="text" name="domain" placeholder="Input email or domain"/>
                 </div>
                 <div class="col-2 col-12-xsmall">
                   <ul class="actions">
