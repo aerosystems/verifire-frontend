@@ -10,6 +10,10 @@ import RecoveryForm from "@/components/auth/RecoveryForm.vue";
 import SignupConfirm from "@/components/auth/SignupConfirm.vue";
 import RecoveryConfirm from "@/components/auth/RecoveryConfirm.vue";
 import DeprecatedUsagePage from "@/components/pages/DeprecatedUsagePage.vue";
+import GenericPage from "@/components/pages/GenericPage.vue";
+import DonateSuccessComponent from "@/components/DonateSuccessComponent.vue";
+import DonateFailureComponent from "@/components/DonateFailureComponent.vue";
+import DonateCancelComponent from "@/components/DonateCancelComponent.vue";
 
 const routes = [
     {
@@ -105,6 +109,35 @@ const routes = [
         path: "/deprecated",
         name: "deprecated",
         component: DeprecatedUsagePage,
+    },
+    {
+      path: "/donate",
+      name: "donate",
+      component: GenericPage,
+        children: [
+            {
+                path: "",
+                name: "donate-default",
+                beforeEnter: (to, from, next) => {
+                    next({name: "main"});
+                },
+            },
+            {
+                path: "success",
+                name: "donate-success",
+                component: DonateSuccessComponent,
+            },
+            {
+                path: "failure",
+                name: "donate-failure",
+                component: DonateFailureComponent,
+            },
+            {
+                path: "cancel",
+                name: "donate-cancel",
+                component: DonateCancelComponent,
+            }
+            ]
     },
     {
         path: "/:catchAll(.*)",

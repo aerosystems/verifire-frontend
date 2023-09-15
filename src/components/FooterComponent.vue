@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer" class="wrapper style1-alt">
+  <footer id="footer" class="wrapper alt">
     <div class="inner">
       <ul class="menu">
         <li>&copy; Testmail. All rights reserved.</li>
