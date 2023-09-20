@@ -9,7 +9,7 @@
             <form @submit.prevent="inspect">
               <div class="row gtr-uniform">
                 <div class="col-10 col-12-xsmall">
-                  <input v-model="inspectInput" type="text" name="domain" placeholder="Input email or domain"/>
+                  <input v-model="inspectInput" type="text" name="data" placeholder="Input email or domain"/>
                 </div>
                 <div class="col-2 col-12-xsmall">
                   <ul class="actions">

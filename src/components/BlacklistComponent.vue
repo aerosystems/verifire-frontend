@@ -50,7 +50,7 @@ export default {
         "name": this.blacklistInput,
         "type": "blacklist"
       }
-      CheckmailService.setFilterReview(data, recaptchaToken).then(
+      CheckmailService.setDomainReview(data, recaptchaToken).then(
           response => {
             this.blacklistSuccessResponse = response.data.message;
             setTimeout(() => {

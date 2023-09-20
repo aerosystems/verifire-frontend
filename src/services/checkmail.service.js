@@ -43,13 +43,12 @@ class CheckmailService {
 
     }
 
-    setFilterReview(data, recaptchaToken) {
+    setDomainReview(data, recaptchaToken) {
         return api
-            .post("/checkmail/v1/filter/review",
+            .post("/checkmail/v1/domains/review",
                 {
                     "name": data.name,
                     "type": data.type,
-                    "coverage": "equals",
                 },
                 {
                     headers: {
