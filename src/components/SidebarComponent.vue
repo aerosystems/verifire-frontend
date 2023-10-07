@@ -10,6 +10,9 @@
             <router-link to="/billing#apikey">API Key</router-link>
           </li>
           <li>
+            <router-link to="/billing#statistics">Statistics</router-link>
+          </li>
+          <li>
             <router-link to="/billing#fine-tuning">Fine-tuning</router-link>
           </li>
           <li>
