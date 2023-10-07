@@ -7,23 +7,26 @@
           <section>
             <form>
               <div class="row">
-                <div class="col-6">
+                <div class="col-4">
                   <select class="form-control" v-model="project">
                     <option v-for="projectItem in projectListState" :key="projectItem.id" :value="projectItem">
                       {{ projectItem.name }}
                     </option>
                   </select>
                 </div>
-                <div class="col-6">
-                  <router-link to="/usage" target="_blank" class="button">Examples of using</router-link>
+                <div class="col-4">
+                  <button @click="generateToken" class="button">Add New Project</button>
                 </div>
+<!--                <div class="col-4">-->
+<!--                  <router-link to="/usage" target="_blank" class="button">Examples</router-link>-->
+<!--                </div>-->
               </div>
             </form>
             <div class="row">
-              <div class="col-10">
+              <div class="col-8">
                 <pre><code>{{ project.token }}</code></pre>
               </div>
-              <div class="col-2">
+              <div class="col-4">
                 <button @click="copyToken(project.token)" class="button">
                   <font-awesome-icon icon="fa-copy"/>
                   Copy
