@@ -1,4 +1,4 @@
-import AuthService from '../services/auth.service';
+import AuthService from '@/services/auth.service';
 import TokenService from "@/services/token.service";
 
 const user = JSON.parse(localStorage.getItem('user'));

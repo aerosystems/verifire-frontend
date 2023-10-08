@@ -13,7 +13,7 @@
                   <button
                       class="button small"
                       :class="{'primary': is24Hours}"
-                      @click="set24Hours(); getStatByLast(24, 'hour')">
+                      @click="set24Hours(); getStatByLast(24)">
                     24 hours
                   </button>
                 </li>
@@ -21,14 +21,14 @@
                   <button
                       class="button small"
                       :class="{'primary': is7Days}"
-                      @click="set7Days(); getStatByLast(24 * 7, 'day')">
+                      @click="set7Days(); getStatByLast(24 * 7)">
                     7 days</button>
                 </li>
                 <li>
                   <button
                       class="button small"
                       :class="{'primary': is1Month}"
-                      @click="set1Month(); getStatByLast(24 * 30, 'day')">
+                      @click="set1Month(); getStatByLast(24 * 30)">
                     1 month</button>
                 </li>
               </ul>
@@ -81,7 +81,8 @@ export default {
     return {}
   },
   onMounted() {
-    this.getStatByLast(24, 'hour');
+    // this.set24Hours();
+    // this.getStatByLast(24);
   },
   data() {
     return {
@@ -224,21 +225,21 @@ export default {
       this.is7Days = false;
       this.is1Month = true;
     },
-    async getStatByLast(durationHours, scale) {
+    async getStatByLast(durationHours) {
       const timeEnd = new Date();
-      const timeStart = new Date(timeEnd.getTime() - 1000 * 60 * 60 * durationHours * 3);
-      await StatService.getEvents(
+      const timeStart = new Date(timeEnd.getTime() - 1000 * 60 * 60 * durationHours);
+      let statServiceInstance = new StatService(
           this.projectState.token,
           timeStart,
           timeEnd,
           10000,
-          0
-      ).then((response) => {
-        this.polarData = StatService.parseTotalEvents(response.data.data);
-        console.log(response.data.data, scale);
-      }).catch((error) => {
-        console.log(error);
-      });
+          0,
+      );
+
+      await statServiceInstance.getEvents();
+
+      this.polarData = statServiceInstance.getPolarData();
+      statServiceInstance = null;
     },
   },
   computed: {

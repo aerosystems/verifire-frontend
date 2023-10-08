@@ -1,5 +1,4 @@
 import api from "@/services/api";
-
 class UserService {
     getUser() {
         return api
@@ -11,5 +10,4 @@ class UserService {
                 })
     }
 }
-
 export default new UserService();
