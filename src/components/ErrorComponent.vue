@@ -1,8 +1,12 @@
 <template>
   <div class="wrapper-custom">
-    <div v-for="(error, index) in errorQueue" :key="index">
-      <a class="button primary custom">{{error}}</a>
-      </div>
+    <ul class="actions stacked">
+      <li v-for="(error, index) in errorQueue" :key="index">
+        <button class="button primary fit" @click="removeError(error)">
+          {{error.message}}
+        </button>
+      </li>
+      </ul>
   </div>
 </template>
 
@@ -19,6 +23,11 @@ export default {
       errorQueue: state => state.ui.errorQueue,
     })
   },
+  methods: {
+    removeError(error) {
+      this.$store.commit('ui/removeError', error)
+    }
+  }
 }
 </script>
 

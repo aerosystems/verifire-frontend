@@ -244,9 +244,6 @@ export default {
           },
           error => {
             store.dispatch('ui/addError', error);
-            setTimeout(() => {
-              store.commit('ui/removeError');
-            }, 5000)
           }
       )
 
