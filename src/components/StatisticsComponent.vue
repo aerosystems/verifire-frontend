@@ -72,6 +72,7 @@ import StatService from "@/services/stat.service";
 import { Bar, PolarArea, Doughnut } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, ArcElement, RadialLinearScale, CategoryScale, LinearScale, Colors } from 'chart.js'
 import {mapState} from "vuex";
+import store from "@/store";
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, ArcElement, RadialLinearScale, CategoryScale, LinearScale, Colors)
 
@@ -236,15 +237,27 @@ export default {
           0,
       );
 
-      await statServiceInstance.getEvents();
+      await statServiceInstance.getEvents()
+          .then(
+          () => {
+            this.polarData = statServiceInstance.getPolarData();
+          },
+          error => {
+            store.dispatch('ui/addError', error);
+            setTimeout(() => {
+              store.commit('ui/removeError');
+            }, 5000)
+          }
+      )
 
-      this.polarData = statServiceInstance.getPolarData();
+
       statServiceInstance = null;
     },
   },
   computed: {
     ...mapState({
       projectState: state => state.project.project,
+      uiState: state => state.ui.error,
     })
   },
 }

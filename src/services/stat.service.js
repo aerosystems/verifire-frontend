@@ -111,59 +111,63 @@ class StatService {
                 }
                 console.log("2:", domainType, keyHour, this.dataByHour.get(keyHour));
 
-                const keyDay = this.getKeyDay(event.createdAt);
-                if (this.dataByDay.has(keyDay)) {
-                    if (this.dataByDay.get(keyDay).has(domainType)) {
-                        this.dataByDay.get(keyDay).set(domainType, this.dataByDay.get(keyDay).get(domainType) + 1);
-                    } else {
-                        this.dataByDay.get(keyDay).set(domainType, 1);
-                    }
-                } else {
-                    this.dataByDay.set(keyDay, defaultDatasetResponses);
-                    this.dataByDay.get(keyDay).set(domainType, 1);
-                }
+                // const keyDay = this.getKeyDay(event.createdAt);
+                // if (this.dataByDay.has(keyDay)) {
+                //     if (this.dataByDay.get(keyDay).has(domainType)) {
+                //         this.dataByDay.get(keyDay).set(domainType, this.dataByDay.get(keyDay).get(domainType) + 1);
+                //     } else {
+                //         this.dataByDay.get(keyDay).set(domainType, 1);
+                //     }
+                // } else {
+                //     this.dataByDay.set(keyDay, defaultDatasetResponses);
+                //     this.dataByDay.get(keyDay).set(domainType, 1);
+                // }
             }
 
-            if (event.errorCode) {
-                const eventErrorCode = event.errorCode;
-                if (this.totalErrors.has(event.errorCode)) {
-                    this.totalErrors.set(eventErrorCode, this.totalErrors.get(eventErrorCode) + 1);
-                } else {
-                    this.totalErrors.set(eventErrorCode, 1);
-                }
-
-                if (this.totalData.has('error')) {
-                    this.totalData.set('error', this.totalData.get('error') + 1);
-                } else {
-                    this.totalData.set('error', 1);
-                }
-
-                const keyHour = this.getKeyHour(event.createdAt);
-                if (this.dataByHour.has(keyHour)) {
-                    if (this.dataByHour.get(keyHour).has('error')) {
-                        this.dataByHour.get(keyHour).set('error', this.dataByHour.get(keyHour).get('error') + 1);
-                    } else {
-                        this.dataByHour.get(keyHour).set('error', 1);
-                    }
-                } else {
-                    this.dataByHour.set(keyHour, defaultDatasetResponses);
-                    this.dataByHour.get(keyHour).set('error', 1);
-                }
-
-                const keyDay = this.getKeyDay(event.createdAt);
-                if (this.dataByDay.has(keyDay)) {
-                    if (this.dataByDay.get(keyDay).has('error')) {
-                        this.dataByDay.get(keyDay).set('error', this.dataByDay.get(keyDay).get('error') + 1);
-                    } else {
-                        this.dataByDay.get(keyDay).set('error', 1);
-                    }
-                } else {
-                    this.dataByDay.set(keyDay, defaultDatasetResponses);
-                    this.dataByDay.get(keyDay).set('error', 1);
-                }
-            }
+            // if (event.errorCode) {
+            //     const eventErrorCode = event.errorCode;
+            //     if (this.totalErrors.has(event.errorCode)) {
+            //         this.totalErrors.set(eventErrorCode, this.totalErrors.get(eventErrorCode) + 1);
+            //     } else {
+            //         this.totalErrors.set(eventErrorCode, 1);
+            //     }
+            //
+            //     if (this.totalData.has('error')) {
+            //         this.totalData.set('error', this.totalData.get('error') + 1);
+            //     } else {
+            //         this.totalData.set('error', 1);
+            //     }
+            //
+            //     const keyHour = this.getKeyHour(event.createdAt);
+            //     if (this.dataByHour.has(keyHour)) {
+            //         if (this.dataByHour.get(keyHour).has('error')) {
+            //             this.dataByHour.get(keyHour).set('error', this.dataByHour.get(keyHour).get('error') + 1);
+            //         } else {
+            //             this.dataByHour.get(keyHour).set('error', 1);
+            //         }
+            //     } else {
+            //         this.dataByHour.set(keyHour, defaultDatasetResponses);
+            //         this.dataByHour.get(keyHour).set('error', 1);
+            //     }
+            //
+            //     const keyDay = this.getKeyDay(event.createdAt);
+            //     if (this.dataByDay.has(keyDay)) {
+            //         if (this.dataByDay.get(keyDay).has('error')) {
+            //             this.dataByDay.get(keyDay).set('error', this.dataByDay.get(keyDay).get('error') + 1);
+            //         } else {
+            //             this.dataByDay.get(keyDay).set('error', 1);
+            //         }
+            //     } else {
+            //         this.dataByDay.set(keyDay, defaultDatasetResponses);
+            //         this.dataByDay.get(keyDay).set('error', 1);
+            //     }
+            // }
         });
 
+        // console.log("!!!", this.totalData);
+        // console.log("^^^", this.totalErrors);
+        console.log("###", this.dataByHour);
+        // console.log("$$$", this.dataByDay);
     }
 
     initDataByHour(timeStart, timeEnd) {

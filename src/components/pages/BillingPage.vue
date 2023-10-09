@@ -5,6 +5,8 @@
 
     <!-- Wrapper -->
     <div id="wrapper">
+      <!-- Error -->
+      <error-component/>
 
       <!-- Project -->
       <project-component/>
@@ -40,6 +42,7 @@ import ProjectComponent from "@/components/ProjectComponent.vue";
 import FineTuningComponent from "@/components/FineTuningComponent.vue";
 import InspectBillingComponent from "@/components/InspectBillingComponent.vue";
 import StatisticsComponent from "@/components/StatisticsComponent.vue";
+import ErrorComponent from "@/components/ErrorComponent.vue";
 // import SwaggerComponent from "@/components/SwaggerComponent.vue";
 
 export default {
@@ -51,7 +54,8 @@ export default {
     ProjectComponent,
     FooterComponent,
     SidebarComponent,
-    DonateComponent
+    DonateComponent,
+    ErrorComponent
   },
   setup() {
     document.title = "Testmail";
