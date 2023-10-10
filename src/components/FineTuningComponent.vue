@@ -70,7 +70,7 @@ export default {
   },
   computed: {
     ...mapState({
-      projectListState: state => state.project.projectList,
+      projectState: state => state.project.project,
     })
   },
   methods: {
@@ -81,12 +81,12 @@ export default {
         "name": this.blacklistInput,
         "type": "blacklist"
       }
-      let defaultProject = this.projectListState.find(project => project.name === "default");
-      CheckmailService.setFilter(data, defaultProject.token).then(
+      CheckmailService.setFilter(data, this.projectState.token).then(
           response => {
             this.blacklistSuccessResponse = response.data.message;
             setTimeout(() => {
               this.blacklistSuccessResponse = '';
+              this.blacklistInput = '';
             }, 5000);
           },
           error => {
@@ -102,9 +102,34 @@ export default {
           }
       )
     },
-    addDomainToWhitelist() {
-      console.log('addDomainWhitelist');
-    }
+    async addDomainToWhitelist() {
+      this.whitelistSuccessResponse = '';
+      this.whitelistErrorResponse = '';
+      let data = {
+        "name": this.whitelistInput,
+        "type": "whitelist"
+      }
+      CheckmailService.setFilter(data, this.projectState.token).then(
+          response => {
+            this.whitelistSuccessResponse = response.data.message;
+            setTimeout(() => {
+              this.whitelistSuccessResponse = '';
+              this.whitelistInput = '';
+            }, 5000);
+          },
+          error => {
+            this.whitelistErrorResponse =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            setTimeout(() => {
+              this.whitelistErrorResponse = '';
+            }, 5000);
+          }
+      )
+    },
   }
 }
 </script>

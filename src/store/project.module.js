@@ -11,10 +11,11 @@ export const project = {
         setProjectList({ commit }, recaptchaToken) {
             return ProjectService.getProjects(recaptchaToken).then(
                 function (response) {
-                    commit('setProjectList', response.data.data);
+                    const projectList = response.data.data;
+                    commit('setProjectList', projectList);
                     // Initialize "default" project
-                    commit('setProject', response.data.data[0]);
-                    return Promise.resolve(response.data.data);
+                    commit('setProject', projectList.find(project => project.name === 'default'));
+                    return Promise.resolve(projectList);
                 },
                 function (error) {
                     return Promise.reject(error);

@@ -1,5 +1,6 @@
 import api from "./api";
-import apiService from "./apiService";
+import apiPublic from "./api.public";
+import TokenService from "@/services/token.service";
 
 class CheckmailService {
 
@@ -29,7 +30,7 @@ class CheckmailService {
     }
 
     inspectPrivate(data, apiKey) {
-        return apiService
+        return apiPublic
             .post("/v1/data/inspect",
                 {
                     "data": data
@@ -58,17 +59,18 @@ class CheckmailService {
             )
     }
 
-    setFilter(data, key) {
+    setFilter(data, projectToken) {
         return api
             .post("/checkmail/v1/filters",
                 {
                     "name": data.name,
                     "type": data.type,
                     "coverage": "equals",
+                    "projectToken": projectToken,
                 },
                 {
                     headers: {
-                        'X-Api-Key': key
+                        Authorization: 'Bearer ' + TokenService.getLocalAccessToken()
                     }
                 }
             )

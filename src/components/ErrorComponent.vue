@@ -3,7 +3,7 @@
     <ul class="actions stacked">
       <li v-for="(error, index) in errorQueue" :key="index">
         <button class="button primary fit" @click="removeError(error)">
-          {{error.message}}
+          {{ error?.response?.data?.message || error?.message || error }}
         </button>
       </li>
       </ul>

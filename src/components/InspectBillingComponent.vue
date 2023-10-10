@@ -5,7 +5,7 @@
         <div class="inner">
           <h2>Try to Inspect data:</h2>
           <section>
-            <h3>Simple search that use your "default" API Key</h3>
+            <h3>A simple search that uses the selected API key</h3>
             <form @submit.prevent="inspect">
               <div class="row gtr-uniform">
                 <div class="col-10 col-12-xsmall">
@@ -43,15 +43,14 @@ export default {
   },
   computed: {
     ...mapState({
-      projectListState: state => state.project.projectList
+      projectState: state => state.project.project,
     })
   },
   methods: {
     async inspect() {
       this.inspectSuccessResponse = '';
       this.inspectErrorResponse = '';
-      let defaultProject = this.projectListState.find(project => project.name === 'default');
-      CheckmailService.inspectPrivate(this.inspectInput, defaultProject.token).then(
+      CheckmailService.inspectPrivate(this.inspectInput, this.projectState.token).then(
           response => {
             this.inspectSuccessResponse = response.data.message;
             setTimeout(() => {

@@ -13,7 +13,7 @@
                   <button
                       class="button small"
                       :class="{'primary': is24Hours}"
-                      @click="set24Hours(); getStatByLast(24)">
+                      @click="set24Hours(); getStatByLast(24, 'hour')">
                     24 hours
                   </button>
                 </li>
@@ -21,14 +21,14 @@
                   <button
                       class="button small"
                       :class="{'primary': is7Days}"
-                      @click="set7Days(); getStatByLast(24 * 7)">
+                      @click="set7Days(); getStatByLast(24 * 7, 'day')">
                     7 days</button>
                 </li>
                 <li>
                   <button
                       class="button small"
                       :class="{'primary': is1Month}"
-                      @click="set1Month(); getStatByLast(24 * 30)">
+                      @click="set1Month(); getStatByLast(24 * 30, 'day')">
                     1 month</button>
                 </li>
               </ul>
@@ -81,9 +81,17 @@ export default {
   setup() {
     return {}
   },
-  onMounted() {
-    // this.set24Hours();
-    // this.getStatByLast(24);
+  watch: {
+    'projectState.token': {
+      immediate: true, // Виконати обробник при монтуванні компонента
+      handler(newValue, oldValue) {
+        // Перевірка, чи змінився токен
+        if (newValue !== oldValue) {
+          // Викликаємо метод після зміни токену
+          this.getStatByLast(24, 'hour');
+        }
+      }
+    }
   },
   data() {
     return {
@@ -94,55 +102,37 @@ export default {
         labels: [ 'January', 'February', 'March' ],
         datasets: [
           {
-            label: 'Blacklist',
-            backgroundColor: 'rgba(0,45,94,0.6)',
+            label: 'blacklist',
             data: [10, 20, 30]
           },
           {
-            label: 'Whitelist',
-            backgroundColor: 'rgba(60,154,0,0.6)',
+            label: 'whitelist',
             data: [ 10, 5, 30 ]
           },
           {
-            label: 'Undefined',
-            backgroundColor: 'rgba(218,109,0,0.6)',
+            label: 'undefined',
             data: [ 10, 20, 5 ]
           },
           {
-            label: 'Error',
-            backgroundColor: 'rgba(255,26,26,0.6)',
+            label: 'error',
             data: [ 5, 20, 10 ]
           }
         ]
       },
       polarData: {
-        labels: [ 'Blacklist', 'Whitelist', 'Undefined', 'Error' ],
+        labels: ['blacklist', 'whitelist', 'undefined', 'error'],
         datasets: [
           {
-            label: 'Responses',
-            backgroundColor: [
-              'rgba(0,45,94,0.6)',
-              'rgba(60,154,0,0.6)',
-              'rgba(218,109,0,0.6)',
-              'rgba(255,26,26,0.6)',
-            ],
-            data: [ 0, 0, 0, 0 ],
+            data: [1, 2, 3, 4],
             borderWidth: 0,
           }
         ]
       },
       doughnutData: {
-        labels: [ 'Blacklist', 'Whitelist', 'Undefined', 'Error' ],
+        labels: ['400001', '400002', '400003', '400004'],
         datasets: [
           {
-            label: 'Responses',
-            backgroundColor: [
-              'rgba(0,45,94,0.6)',
-              'rgba(60,154,0,0.6)',
-              'rgba(218,109,0,0.6)',
-              'rgba(255,26,26,0.6)',
-            ],
-            data: [ 10, 20, 5, 5 ],
+            data: [1, 2, 3, 4],
             borderWidth: 0,
           }
         ]
@@ -226,7 +216,7 @@ export default {
       this.is7Days = false;
       this.is1Month = true;
     },
-    async getStatByLast(durationHours) {
+    async getStatByLast(durationHours, scale) {
       const timeEnd = new Date();
       const timeStart = new Date(timeEnd.getTime() - 1000 * 60 * 60 * durationHours);
       let statServiceInstance = new StatService(
@@ -240,13 +230,14 @@ export default {
       await statServiceInstance.getEvents()
           .then(
           () => {
-            this.polarData = statServiceInstance.getPolarData();
+            this.polarData = statServiceInstance.getTotalResponsesData();
+            this.doughnutData = statServiceInstance.getTotalErrorData();
+            this.diagramData = statServiceInstance.getResponsesData(scale);
           },
           error => {
             store.dispatch('ui/addError', error);
           }
-      )
-
+      );
 
       statServiceInstance = null;
     },
@@ -254,7 +245,6 @@ export default {
   computed: {
     ...mapState({
       projectState: state => state.project.project,
-      uiState: state => state.ui.error,
     })
   },
 }

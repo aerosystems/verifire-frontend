@@ -15,7 +15,7 @@ export const ui = {
         },
         removeError({ commit }, error) {
             commit('removeError', error)
-        }
+        },
     },
     mutations: {
         addError(state, error) {
@@ -24,6 +24,6 @@ export const ui = {
         removeError(state, error) {
             console.log('removeError', error);
             state.errorQueue = state.errorQueue.filter(e => e.id !== error.id)
-        }
+        },
     }
 }
