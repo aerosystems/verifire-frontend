@@ -1,12 +1,5 @@
 import api from "./api";
 
-let defaultColors = new Map([
-    ['blacklist', 'rgba(0,45,94,0.6)'],
-    ['whitelist', 'rgba(60,154,0,0.6)'],
-    ['undefined', 'rgba(218,109,0,0.6)'],
-    ['error', 'rgba(255,26,26,0.6)'],
-]);
-
 class StatService {
     constructor(projectToken, startTime, endTime, limit, offset) {
         this.dataByHour = new Map([]);
@@ -114,14 +107,12 @@ class StatService {
     getTotalResponsesData() {
         let labels = [];
         let dataset = {
-            backgroundColor: [],
             data: [],
             borderWidth: 0,
         };
 
         this.totalData.forEach((value, key) => {
             labels.push(key);
-            dataset.backgroundColor.push(defaultColors.get(key));
             dataset.data.push(value);
         });
 

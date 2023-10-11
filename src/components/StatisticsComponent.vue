@@ -35,10 +35,11 @@
             </div>
           </div>
           <section>
-            <h3>Classification of responses per hour</h3>
+            <h3>Classification of responses per hour<span v-if="isDiagramEmpty">: no data</span></h3>
             <div class="row">
               <div class="col-12">
               <Bar
+                  v-if="!isDiagramEmpty"
                   :options="chartOptions"
                   :data="diagramData"
               />
@@ -46,15 +47,17 @@
             </div>
             <div class="row">
               <div class="col-6">
-                <h3>Total responses</h3>
+                <h3>Total responses<span v-if="isPolarDataEmpty">: no data</span></h3>
                 <PolarArea
+                    v-if="!isPolarDataEmpty"
                     :data="polarData"
                     :options="polarOptions"
                 />
               </div>
               <div class="col-6">
-                <h3>Errors</h3>
+                <h3>Errors<span v-if="isDoughnutEmpty">: no data</span></h3>
                 <Doughnut
+                    v-if="!isDoughnutEmpty"
                     :data="doughnutData"
                     :options="doughnutOptions"
                 />
@@ -95,44 +98,35 @@ export default {
   },
   data() {
     return {
+      isDiagramEmpty: true,
+      isPolarDataEmpty: true,
+      isDoughnutEmpty: true,
       is24Hours: true,
       is7Days: false,
       is1Month: false,
       diagramData: {
-        labels: [ 'January', 'February', 'March' ],
+        labels: [],
         datasets: [
           {
-            label: 'blacklist',
-            data: [10, 20, 30]
-          },
-          {
-            label: 'whitelist',
-            data: [ 10, 5, 30 ]
-          },
-          {
-            label: 'undefined',
-            data: [ 10, 20, 5 ]
-          },
-          {
-            label: 'error',
-            data: [ 5, 20, 10 ]
+            data: [],
+            borderWidth: 0,
           }
         ]
       },
       polarData: {
-        labels: ['blacklist', 'whitelist', 'undefined', 'error'],
+        labels: [],
         datasets: [
           {
-            data: [1, 2, 3, 4],
+            data: [],
             borderWidth: 0,
           }
         ]
       },
       doughnutData: {
-        labels: ['400001', '400002', '400003', '400004'],
+        labels: [],
         datasets: [
           {
-            data: [1, 2, 3, 4],
+            data: [],
             borderWidth: 0,
           }
         ]
@@ -230,17 +224,23 @@ export default {
       await statServiceInstance.getEvents()
           .then(
           () => {
+            this.diagramData = statServiceInstance.getResponsesData(scale);
             this.polarData = statServiceInstance.getTotalResponsesData();
             this.doughnutData = statServiceInstance.getTotalErrorData();
-            this.diagramData = statServiceInstance.getResponsesData(scale);
+            console.log(this.doughnutData)
+            this.isDiagramEmpty = this.isDataChartEmpty(this.diagramData);
+            this.isPolarDataEmpty = this.isDataChartEmpty(this.polarData);
+            this.isDoughnutEmpty = this.isDataChartEmpty(this.doughnutData);
           },
           error => {
             store.dispatch('ui/addError', error);
           }
       );
-
       statServiceInstance = null;
     },
+    isDataChartEmpty(data) {
+      return data.datasets[0].data.length === 0;
+    }
   },
   computed: {
     ...mapState({

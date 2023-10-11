@@ -3111,7 +3111,20 @@ body.is-preload .spotlights > section > .content > .inner {
     opacity: 0;
 }
 
+@media screen and (min-width: 1680px) {
+
+    .spotlights > section > .image {
+        margin-left: 4.5em;
+        height: 50vh;
+    }
+
+}
+
 @media screen and (max-width: 1680px) {
+
+    .spotlights > section > .content {
+        width: 100%;
+    }
 
     .spotlights > section > .content {
         padding: 4em 4em 2em 4em;
@@ -3119,11 +3132,24 @@ body.is-preload .spotlights > section > .content > .inner {
 
 }
 
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 1280px) and (min-width: 980px) {
 
-    .spotlights > section {
-        display: block;
+    .spotlights > section > .image {
+        margin-left: 2.5em;
+        height: 50vh;
     }
+
+    /*.spotlights > section > .content {*/
+    /*    padding: 4em 8em 2em 8em;*/
+    /*}*/
+
+    .spotlights > section > .content {
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 980px) {
 
     .spotlights > section > .image {
         width: 100%;
@@ -3145,6 +3171,10 @@ body.is-preload .spotlights > section > .content > .inner {
 }
 
 @media screen and (max-width: 736px) {
+
+    .spotlights > section {
+        display: block;
+    }
 
     .spotlights > section > .image {
         height: 50vh;
