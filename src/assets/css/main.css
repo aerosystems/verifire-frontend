@@ -1,5 +1,3 @@
-@import url(fontawesome-all.min.css);
-
 /*
 	Hyperspace by HTML5 UP
 	html5up.net | @ajlkn
@@ -1846,7 +1844,7 @@ button,
     letter-spacing: 0.25em;
     line-height: 4.75em;
     outline: 0;
-    padding: 0 3.75em;
+    padding: 0 3.25em;
     position: relative;
     text-align: center;
     text-decoration: none;

@@ -5,7 +5,8 @@ import {
     faCopy,
     faUser,
     faUserAlt,
-    faTrashAlt
+    faTrash,
+    faAdd
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
@@ -13,6 +14,7 @@ library.add(
     faCopy,
     faUser,
     faUserAlt,
-    faTrashAlt
+    faTrash,
+    faAdd
     );
 export {FontAwesomeIcon};
