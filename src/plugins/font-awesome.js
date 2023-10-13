@@ -4,13 +4,15 @@ import {
     faSignInAlt,
     faCopy,
     faUser,
-    faUserAlt
+    faUserAlt,
+    faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 
 library.add(
     faSignInAlt,
     faCopy,
     faUser,
-    faUserAlt
+    faUserAlt,
+    faTrashAlt
     );
 export {FontAwesomeIcon};

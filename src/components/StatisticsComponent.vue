@@ -234,6 +234,9 @@ export default {
           },
           error => {
             store.dispatch('ui/addError', error);
+            this.isDiagramEmpty = true;
+            this.isPolarDataEmpty = true;
+            this.isDoughnutEmpty = true;
           }
       );
       statServiceInstance = null;

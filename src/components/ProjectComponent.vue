@@ -14,31 +14,49 @@
                     </option>
                   </select>
                 </div>
-                <div class="col-6">
+                <div class="col-3">
                   <pre><code>{{ project.token }}</code></pre>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                   <a @click="copyToken(project.token)" class="button">
                     <font-awesome-icon icon="fa-copy"/>
                     Copy
                   </a>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-2"></div>
-                <div class="col-4">
-                  <a @click="generateToken" class="button primary">Add New Project</a>
+                <div class="col-2">
+                  <a @click="delete(project.id)" class="button">
+                    <font-awesome-icon icon="fa-trash"/>
+                    Delete
+                  </a>
                 </div>
-                <div class="col-4">
-                  <router-link to="/usage" target="_blank" class="button">Examples</router-link>
-                </div>
-                <div class="col-2"></div>
               </div>
             </form>
-            <div class="row">
+          </section>
+          <h2>Add Project:</h2>
+          <section>
+            <form @submit.prevent="addProject">
+              <div class="row">
 
+                <div class="col-6">
+                  <input v-model="projectName" type="text" placeholder="Input project name"/>
+                </div>
 
-            </div>
+                <div class="col-6">
+                  <ul class="actions">
+                    <li><input type="submit" value="Add" class="primary" :class="{'disabled': userRoleState !== 'startup'}"/></li>
+                  </ul>
+                </div>
+
+                <div class="col-12">
+                  <span v-show="addSuccessResponse" class="response success">{{ addSuccessResponse }}</span>
+                  <span v-show="addErrorResponse" class="response failed">{{ addErrorResponse }}</span>
+                </div>
+
+              </div>
+            </form>
+
+<!--              <router-link to="/usage" target="_blank" class="button">Examples</router-link>-->
+
           </section>
         </div>
       </div>
@@ -58,6 +76,9 @@ export default {
   data() {
     return {
       project: {},
+      projectName: '',
+      addSuccessResponse: '',
+      addErrorResponse: '',
     }
   },
   beforeMount() {
@@ -67,6 +88,8 @@ export default {
     ...mapState({
       projectListState: state => state.project.projectList,
       projectState: state => state.project.project,
+      userState: state => state.user.user,
+      userRoleState: state => state.user.role,
     })
   },
   watch: {
