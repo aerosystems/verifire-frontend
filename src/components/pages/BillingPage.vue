@@ -8,6 +8,9 @@
       <!-- Error -->
       <error-component/>
 
+      <!-- Subscription -->
+      <subscription-component/>
+
       <!-- Project -->
       <project-component/>
 
@@ -42,12 +45,14 @@ import ProjectComponent from "@/components/ProjectComponent.vue";
 import FineTuningComponent from "@/components/FineTuningComponent.vue";
 import InspectBillingComponent from "@/components/InspectBillingComponent.vue";
 import StatisticsComponent from "@/components/StatisticsComponent.vue";
+import SubscriptionComponent from "@/components/SubscriptionComponent.vue";
 import ErrorComponent from "@/components/ErrorComponent.vue";
 // import SwaggerComponent from "@/components/SwaggerComponent.vue";
 
 export default {
   components: {
     InspectBillingComponent,
+    SubscriptionComponent,
     StatisticsComponent,
     FineTuningComponent,
     // SwaggerComponent,
@@ -58,7 +63,7 @@ export default {
     ErrorComponent
   },
   setup() {
-    document.title = "Testmail";
+    document.title = "Verifire";
 
     return {}
   },

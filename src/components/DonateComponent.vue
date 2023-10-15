@@ -40,7 +40,10 @@ export default {
 
 <style scoped>
 
-
-
+@media screen and (min-width: 736px) {
+  .spotlights > section > .image img {
+    height: 40vh;
+  }
+}
 
 </style>

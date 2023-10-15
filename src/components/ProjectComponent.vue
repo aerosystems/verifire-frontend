@@ -57,7 +57,7 @@
           </section>
           <section>
             <h4>
-              Look more in <router-link to="/usage" target="_blank">examples</router-link>
+              Search for usage examples <router-link to="/usage" target="_blank">here</router-link>
             </h4>
           </section>
         </div>

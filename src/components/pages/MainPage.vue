@@ -60,7 +60,7 @@ export default {
     FooterComponent
   },
   setup() {
-    document.title = "Testmail";
+    document.title = "Verifire";
     const {executeRecaptcha, recaptchaLoaded} = useReCaptcha();
     const recaptcha = async () => {
       // (optional) Wait until recaptcha has been loaded.

@@ -1,5 +1,5 @@
 <template>
-  <section id="inspect" class="wrapper style5 spotlights">
+  <section id="inspect" class="wrapper style6 spotlights">
     <section>
       <div class="content">
         <div class="inner">
