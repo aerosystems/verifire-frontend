@@ -4,7 +4,7 @@ import TokenService from "./token.service";
 class AuthService {
     login({email, password}, token) {
         return api
-            .post("/auth/v1/user/login", {
+            .post("/auth/v1/sign-in", {
                 email,
                 password
             }, {
@@ -24,7 +24,7 @@ class AuthService {
     logout() {
         if (TokenService.getLocalAccessToken() != null) {
             return api
-                .post("/auth/v1/user/logout", {}, {
+                .post("/auth/v1/sign-out", {}, {
                     headers: {
                         Authorization: 'Bearer ' + TokenService.getLocalAccessToken()
                     }
@@ -44,13 +44,12 @@ class AuthService {
         }
     }
 
-    register({email, password, role}, token) {
+    register({email, password}, token) {
         return api
-            .post("/auth/v1/user/register",
+            .post("/auth/v1/sign-up",
                 {
                     email,
-                    password,
-                    role
+                    password
                 },
                 {
                     headers: {
@@ -61,7 +60,7 @@ class AuthService {
 
     recovery({email, password}, token) {
         return api
-            .post("/auth/v1/user/reset-password",
+            .post("/auth/v1/reset-password",
                 {
                     email,
                     password
@@ -75,7 +74,7 @@ class AuthService {
 
     confirm({code}, token) {
         return api
-            .post("/auth/v1/user/confirm",
+            .post("/auth/v1/confirm",
                 {
                     code
                 },

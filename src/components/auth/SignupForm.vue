@@ -106,8 +106,6 @@ export default {
 
       let token = await this.recaptcha(undefined, undefined);
 
-      user.role = "startup";
-
       this.$store.dispatch("auth/register", {user, token}).then(
           () => {
             router.push({name: "auth-signup-confirm"});
