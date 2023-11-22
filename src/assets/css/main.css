@@ -1,5 +1,3 @@
-@import url(fontawesome-all.min.css);
-
 /*
 	Hyperspace by HTML5 UP
 	html5up.net | @ajlkn
@@ -1846,7 +1844,7 @@ button,
     letter-spacing: 0.25em;
     line-height: 4.75em;
     outline: 0;
-    padding: 0 3.75em;
+    padding: 0 3.25em;
     position: relative;
     text-align: center;
     text-decoration: none;
@@ -2561,6 +2559,30 @@ input[type="radio"] + label:before {
     color: #953d75;
 }
 
+.wrapper.style4 .icon.major:before {
+    color: #1f7079;
+}
+
+.wrapper.style4-alt .icon.major:before {
+    color: #195e65;
+}
+
+.wrapper.style5 .icon.major:before {
+    color: #B97000C9;
+}
+
+.wrapper.style5-alt .icon.major:before {
+    color: #7c4813;
+}
+
+.wrapper.style5 .icon.major:before {
+    color: #791f77;
+}
+
+.wrapper.style5-alt .icon.major:before {
+    color: #641562;
+}
+
 /* Image */
 
 .image {
@@ -3011,7 +3033,6 @@ body.is-ie .spotlights > section {
     border-radius: 0;
     display: block;
     position: relative;
-    width: 25em;
 }
 
 .spotlights > section > .image img {
@@ -3036,7 +3057,7 @@ body.is-ie .spotlights > section {
 }
 
 .spotlights > section > .content {
-    padding: 4em 5em 2em 5em;
+    padding: 4em 5em 2em 1em;
     display: -moz-flex;
     display: -webkit-flex;
     display: -ms-flex;
@@ -3090,20 +3111,35 @@ body.is-preload .spotlights > section > .content > .inner {
 @media screen and (max-width: 1680px) {
 
     .spotlights > section > .content {
+        width: 100%;
+    }
+
+    .spotlights > section > .content {
         padding: 4em 4em 2em 4em;
+    }
+
+    .spotlights > section > .image {
+        margin-left: 3em;
+    }
+
+}
+
+@media screen and (max-width: 1280px) and (min-width: 980px) {
+
+    .spotlights > section > .image {
+        margin-left: 2.5em;
+    }
+
+    .spotlights > section > .content {
+        width: 100%;
     }
 
 }
 
 @media screen and (max-width: 980px) {
 
-    .spotlights > section {
-        display: block;
-    }
-
     .spotlights > section > .image {
         width: 100%;
-        height: 50vh;
     }
 
     .spotlights > section > .content {
@@ -3121,6 +3157,10 @@ body.is-preload .spotlights > section > .content > .inner {
 }
 
 @media screen and (max-width: 736px) {
+
+    .spotlights > section {
+        display: block;
+    }
 
     .spotlights > section > .image {
         height: 50vh;
@@ -3264,6 +3304,31 @@ table.alt tfoot {
 .wrapper.style3-alt {
     background-color: #953d75;
 }
+
+.wrapper.style4 {
+    background-color: #1f7079;
+}
+
+.wrapper.style4-alt {
+    background-color: #195e65;
+}
+
+.wrapper.style5 {
+    background-color: #b97000;
+}
+
+.wrapper.style5-alt {
+    background-color: #7c4813;
+}
+
+.wrapper.style6 {
+    background-color: #791f77;
+}
+
+.wrapper.style6-alt {
+    background-color: #641562;
+}
+
 
 .wrapper.fullscreen {
     display: -moz-flex;

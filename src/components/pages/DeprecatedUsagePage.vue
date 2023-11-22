@@ -83,7 +83,7 @@
 
     <!-- Practice  -->
 
-    <section id="letspractice" class="wrapper style2 spotlights">
+    <section class="wrapper style2 spotlights">
       <div class="inner">
         <h2>Let's get down to practice</h2>
         <p>Let's look at the requests to <a href="https://api.testmail.top" target="_blank">api.testmail.top</a> by
@@ -156,7 +156,7 @@ echo $response;
     <!-- Practice - END -->
 
     <!-- Exceptions  -->
-    <section id="exceptions" class="wrapper style2 spotlights">
+    <section class="wrapper style2 spotlights">
       <div class="inner">
         <h2>Great, now let's dive a little deeper into the capabilities of <a href="https://api.testmail.top">api.testmail.top</a>,
           consider a few exceptions:</h2>
@@ -222,7 +222,7 @@ echo $response;
     <!-- Exceptions - END  -->
 
     <!-- Errors  -->
-    <section id="errors" class="wrapper style2 spotlights">
+    <section class="wrapper style2 spotlights">
       <div class="inner">
         <h2>In any incomprehensible situation, just tell the user to check the correct spelling of EMAIL</h2>
         <p>This is necessary so that there is no false expectation on the part of the user of the final stage of
@@ -246,16 +246,8 @@ echo $response;
               <td>"Invalid domain" - syntax error in writing mailbox address</td>
             </tr>
             <tr>
-              <td>34</td>
-              <td>"Typo! This domain 1 level does not exist" - no such domain exists</td>
-            </tr>
-            <tr>
               <td>36</td>
               <td>"No mail server is attached to this domain" - mailbox domain is unable to receive emails</td>
-            </tr>
-            <tr>
-              <td>37</td>
-              <td>"Incoming data is too long" - too long string</td>
             </tr>
             </tbody>
           </table>

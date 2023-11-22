@@ -94,11 +94,7 @@ export default {
               }
             };
 
-            // Запускаємо обидві функції асинхронно
             await Promise.all([increaseBlacklistCount(), increaseWhitelistCount()]);
-          },
-          error => {
-            console.log(error);
           }
       );
     },
@@ -107,7 +103,7 @@ export default {
       this.searchSuccessResponse = '';
       this.searchErrorResponse = '';
 
-      CheckmailService.inspect(this.searchInput, recaptchaToken).then(
+      CheckmailService.inspectPublic(this.searchInput, recaptchaToken).then(
           response => {
             this.searchSuccessResponse = response.data.message;
             setTimeout(() => {

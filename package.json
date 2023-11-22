@@ -1,6 +1,6 @@
 {
   "name": "testmail-frontend",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -11,12 +11,17 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "@vueuse/components": "^10.4.1",
+    "@vueuse/core": "^10.4.1",
     "axios": "^1.4.0",
+    "chart.js": "^4.4.0",
     "core-js": "^3.8.3",
     "fortawesome": "^0.0.1-security",
     "jwt-decode": "^3.1.2",
+    "swagger-ui": "^5.6.2",
     "vee-validate": "^4.11.2",
     "vue": "^3.2.13",
+    "vue-chartjs": "^5.2.0",
     "vue-recaptcha-v3": "^2.0.1",
     "vue-router": "^4.2.4",
     "vuex": "^4.1.0",
@@ -29,7 +34,9 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "node-sass": "^9.0.0",
+    "sass-loader": "^13.3.2"
   },
   "eslintConfig": {
     "root": true,

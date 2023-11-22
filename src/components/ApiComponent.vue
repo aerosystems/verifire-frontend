@@ -1,5 +1,5 @@
 <template>
-  <section id="api" class="wrapper style2 spotlights">
+  <section id="api" class="wrapper style5 spotlights">
     <section>
       <div class="content" id="api-check">
         <div class="inner">

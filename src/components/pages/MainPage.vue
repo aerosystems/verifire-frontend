@@ -46,10 +46,6 @@ import InspectComponent from "@/components/InspectComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
 import {useReCaptcha} from "vue-recaptcha-v3";
 
-import '@/assets/css/fontawesome-all.min.css';
-import '@/assets/css/noscript.css';
-import '@/assets/css/main.css';
-
 export default {
   name: "MainPage",
   components: {
@@ -64,8 +60,8 @@ export default {
     FooterComponent
   },
   setup() {
-    document.title = "Testmail";
-    const { executeRecaptcha, recaptchaLoaded } = useReCaptcha();
+    document.title = "Verifire";
+    const {executeRecaptcha, recaptchaLoaded} = useReCaptcha();
     const recaptcha = async () => {
       // (optional) Wait until recaptcha has been loaded.
       await recaptchaLoaded();
@@ -85,7 +81,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .response {
   border-radius: 0.25em;
   border: solid 1px rgba(255, 255, 255, 0.15);

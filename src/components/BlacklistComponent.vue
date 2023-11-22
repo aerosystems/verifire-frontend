@@ -27,6 +27,7 @@
 
 <script>
 import CheckmailService from "@/services/checkmail.service";
+
 export default {
   name: 'BlacklistComponent',
   setup() {
@@ -49,12 +50,12 @@ export default {
         "name": this.blacklistInput,
         "type": "blacklist"
       }
-      CheckmailService.setFilter(data, recaptchaToken).then(
+      CheckmailService.setDomainReview(data, recaptchaToken).then(
           response => {
-            console.log(response.data.message);
             this.blacklistSuccessResponse = response.data.message;
             setTimeout(() => {
               this.blacklistSuccessResponse = '';
+              this.blacklistInput = '';
             }, 5000);
           },
           error => {
@@ -66,6 +67,7 @@ export default {
                 error.toString();
             setTimeout(() => {
               this.blacklistErrorResponse = '';
+              this.blacklistInput = '';
             }, 5000);
           }
       )
@@ -74,10 +76,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
 #blacklist {
   background-color: #b74e91;
 }
-
 </style>

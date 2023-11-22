@@ -6,22 +6,22 @@
         definitely answer you</p>
       <div class="split style1">
         <section>
-          <Form @submit="sendFeedback" :validation-schema="schema">
+          <Form @submit="sendFeedback" :validation-schema="schema" ref="feedbackForm">
             <div class="fields">
               <div class="field half">
                 <label for="name">Name</label>
                 <Field type="text" name="name"/>
-                <ErrorMessage name="name" class="error-feedback"/>
+                <ErrorMessage name="name" class="response failed"/>
               </div>
               <div class="field half">
                 <label for="email">Email</label>
                 <Field type="text" name="email"/>
-                <ErrorMessage name="email" class="error-feedback"/>
+                <ErrorMessage name="email" class="response failed"/>
               </div>
               <div class="field">
                 <label for="message">Message</label>
-                <Field as="textarea" name="message" rows="5" />
-                <ErrorMessage name="message" class="error-feedback"/>
+                <Field as="textarea" name="message" rows="5"/>
+                <ErrorMessage name="message" class="response failed"/>
               </div>
             </div>
             <ul class="actions">
@@ -55,6 +55,8 @@
 <script>
 import {Form, Field, ErrorMessage} from "vee-validate";
 import * as yup from "yup";
+import FeedbackService from "@/services/feedback.service.js";
+
 export default {
   name: 'FeedbackComponent',
   setup() {
@@ -96,8 +98,21 @@ export default {
       let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
       this.feedbackSuccessResponse = '';
       this.feedbackErrorResponse = '';
-      console.log(letter, recaptchaToken);
-  },
+      FeedbackService.send(letter, recaptchaToken)
+          .then(response => {
+            this.feedbackSuccessResponse = response.data.message;
+            this.$refs.feedbackForm.resetForm();
+            setInterval(() => {
+              this.feedbackSuccessResponse = '';
+            }, 5000);
+          })
+          .catch(error => {
+            this.feedbackErrorResponse = error.response.data.message;
+            setInterval(() => {
+              this.feedbackErrorResponse = '';
+            }, 5000);
+          })
+    },
   }
 }
 </script>

@@ -7,7 +7,22 @@
 </template>
 
 <script>
+import '@/assets/css/noscript.css';
+import '@/assets/css/main.css';
+
 export default {};
 </script>
 
-<style></style>
+<style lang="scss">
+html, body {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+}
+
+.container {
+  height: 100%;
+}
+</style>
