@@ -3,12 +3,12 @@
     <div class="inner">
       <div class="features">
         <section>
-          <span class="icon solid major fa-lock"></span>
+          <span class="icon solid major"><font-awesome-icon icon="fa-lock"/></span>
           <h3>BLACKLIST: {{ blacklistCount }}</h3>
           <p></p>
         </section>
         <section>
-          <span class="icon solid major fa-unlock"></span>
+          <span class="icon solid major"><font-awesome-icon icon="fa-unlock"/></span>
           <h3>WHITELIST: {{ whitelistCount }}</h3>
           <p></p>
         </section>
@@ -128,5 +128,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.wrapper.style1 .icon.major {
+  color: #5e42a6;
+}
+
+.wrapper.style1-alt .icon.major {
+  color: #493382;
+}
 
 </style>
