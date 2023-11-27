@@ -39,7 +39,7 @@
             <div class="row">
               <div class="col-12">
               <Bar
-                  v-if="!isDiagramEmpty"
+                  v-if="isDiagramEmpty"
                   :options="chartOptions"
                   :data="diagramData"
               />
@@ -49,7 +49,7 @@
               <div class="col-6">
                 <h3>Total responses<span v-if="isPolarDataEmpty">: no data</span></h3>
                 <PolarArea
-                    v-if="!isPolarDataEmpty"
+                    v-if="isPolarDataEmpty"
                     :data="polarData"
                     :options="polarOptions"
                 />
@@ -57,7 +57,7 @@
               <div class="col-6">
                 <h3>Errors<span v-if="isDoughnutEmpty">: no data</span></h3>
                 <Doughnut
-                    v-if="!isDoughnutEmpty"
+                    v-if="isDoughnutEmpty"
                     :data="doughnutData"
                     :options="doughnutOptions"
                 />
