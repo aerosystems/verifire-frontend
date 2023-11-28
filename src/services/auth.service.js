@@ -2,6 +2,15 @@ import api from "./api";
 import TokenService from "./token.service";
 
 class AuthService {
+    getUser() {
+        return api
+            .get('/auth/v1/users',
+                {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                    }
+                })
+    }
     login({email, password}, token) {
         return api
             .post("/auth/v1/sign-in", {
