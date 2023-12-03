@@ -3,9 +3,9 @@
     <section>
       <div class="content">
         <div class="inner">
-          <h2>Your subscription is #{{ subscriptionName }}</h2>
+          <h2>Your subscription {{ isSubscriptionActive ? 'is #' + subscriptionName  : '#' + subscriptionName + ' was expired' }}</h2>
           <section>
-            <h3>Is active to {{ formattedDate }}</h3>
+            <h3> {{isSubscriptionActive ? 'Is active to '+ formattedDate : 'Was active to ' + formattedDate}}</h3>
           </section>
           <section>
             <button class="button primary small" @click="setSubscription">Upgrade subscription</button>
@@ -38,6 +38,9 @@ export default {
     }),
     formattedDate() {
       return moment(this.accessTime).format('MMMM Do YYYY, h:mm:ss a');
+    },
+    isSubscriptionActive() {
+      return this.accessTime > Date.now();
     }
   },
 }
