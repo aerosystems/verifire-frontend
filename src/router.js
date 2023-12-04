@@ -14,6 +14,8 @@ import GenericPage from "@/components/pages/GenericPage.vue";
 import DonateSuccessComponent from "@/components/DonateSuccessComponent.vue";
 import DonateFailureComponent from "@/components/DonateFailureComponent.vue";
 import DonateCancelComponent from "@/components/DonateCancelComponent.vue";
+import CheckoutComponent from "@/components/CheckoutDefault.vue";
+import CheckoutStartup from "@/components/CheckoutStartup.vue";
 
 const routes = [
     {
@@ -138,6 +140,28 @@ const routes = [
                 component: DonateCancelComponent,
             }
             ]
+    },
+    {
+        path: "/checkout",
+        name: "checkout",
+        component: GenericPage,
+        children: [
+            {
+                path: "",
+                name: "checkout-default",
+                component: CheckoutComponent,
+            },
+            {
+                path: "startup",
+                name: "checkout-startup",
+                component: CheckoutStartup,
+            },
+            {
+                path: "business",
+                name: "checkout-business",
+                component: CheckoutComponent,
+            }
+        ]
     },
     {
         path: "/:catchAll(.*)",

@@ -19,7 +19,7 @@ import HeaderComponent from "@/components/HeaderComponent.vue";
 import router from "@/router";
 
 export default {
-  name: "DonatePage",
+  name: "GenericPage",
   components: {
     HeaderComponent,
     FooterComponent
