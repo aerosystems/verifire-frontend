@@ -1,5 +1,5 @@
 <template>
-  <section id="fine-tuning" class="wrapper style1 spotlights">
+  <section id="statistics" class="wrapper style1 spotlights">
     <section>
       <div class="content">
         <div class="inner">

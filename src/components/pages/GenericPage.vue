@@ -16,7 +16,6 @@
 <script>
 import FooterComponent from "@/components/FooterComponent.vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
-import router from "@/router";
 
 export default {
   name: "GenericPage",
@@ -26,12 +25,6 @@ export default {
   },
   setup() {
     document.title = "Verifire";
-  },
-  mounted() {
-    setTimeout(() => {
-          router.push({name: "main"});
-        }, 5000
-    );
   }
 }
 </script>

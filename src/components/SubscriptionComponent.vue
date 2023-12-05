@@ -8,7 +8,7 @@
             <h3> {{isSubscriptionActive ? 'Is active to '+ formattedDate : 'Was active to ' + formattedDate}}</h3>
           </section>
           <section>
-            <button class="button primary small" @click="setSubscription">Upgrade subscription</button>
+            <router-link to="/checkout" class="button primary small">Upgrade subscription</router-link>
           </section>
         </div>
       </div>

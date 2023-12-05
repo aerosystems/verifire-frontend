@@ -11,11 +11,11 @@ import SignupConfirm from "@/components/auth/SignupConfirm.vue";
 import RecoveryConfirm from "@/components/auth/RecoveryConfirm.vue";
 import DeprecatedUsagePage from "@/components/pages/DeprecatedUsagePage.vue";
 import GenericPage from "@/components/pages/GenericPage.vue";
-import DonateSuccessComponent from "@/components/DonateSuccessComponent.vue";
-import DonateFailureComponent from "@/components/DonateFailureComponent.vue";
-import DonateCancelComponent from "@/components/DonateCancelComponent.vue";
-import CheckoutComponent from "@/components/CheckoutDefault.vue";
-import CheckoutStartup from "@/components/CheckoutStartup.vue";
+import PaymentComponent from "@/components/PaymentComponent.vue";
+import PaymentSuccessComponent from "@/components/PaymentSuccessComponent.vue";
+import PaymentFailureComponent from "@/components/PaymentFailureComponent.vue";
+import PaymentCancelComponent from "@/components/PaymentCancelComponent.vue";
+import CheckoutComponent from "@/components/CheckoutComponent.vue";
 
 const routes = [
     {
@@ -113,9 +113,9 @@ const routes = [
         component: DeprecatedUsagePage,
     },
     {
-      path: "/donate",
-      name: "donate",
-      component: GenericPage,
+        path: "/donate",
+        name: "donate",
+        component: GenericPage,
         children: [
             {
                 path: "",
@@ -127,19 +127,46 @@ const routes = [
             {
                 path: "success",
                 name: "donate-success",
-                component: DonateSuccessComponent,
+                component: PaymentSuccessComponent,
             },
             {
                 path: "failure",
                 name: "donate-failure",
-                component: DonateFailureComponent,
+                component: PaymentFailureComponent,
             },
             {
                 path: "cancel",
                 name: "donate-cancel",
-                component: DonateCancelComponent,
+                component: PaymentCancelComponent,
             }
-            ]
+        ]
+    },
+    {
+        path: "/payment",
+        name: "payment",
+        component: GenericPage,
+        children: [
+            {
+                path: "",
+                name: "payment-default",
+                component: PaymentComponent,
+            },
+            {
+                path: "success",
+                name: "payment-success",
+                component: PaymentSuccessComponent,
+            },
+            {
+                path: "failure",
+                name: "payment-failure",
+                component: PaymentFailureComponent,
+            },
+            {
+                path: "cancel",
+                name: "payment-cancel",
+                component: PaymentCancelComponent,
+            }
+        ]
     },
     {
         path: "/checkout",
@@ -149,16 +176,6 @@ const routes = [
             {
                 path: "",
                 name: "checkout-default",
-                component: CheckoutComponent,
-            },
-            {
-                path: "startup",
-                name: "checkout-startup",
-                component: CheckoutStartup,
-            },
-            {
-                path: "business",
-                name: "checkout-business",
                 component: CheckoutComponent,
             }
         ]

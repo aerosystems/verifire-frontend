@@ -11,11 +11,19 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   setup() {
 
 
     return {}
+  },
+  mounted() {
+    setTimeout(() => {
+          router.push({name: "main"});
+        }, 5000
+    );
   }
 }
 </script>
