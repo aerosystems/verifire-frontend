@@ -116,6 +116,7 @@ const routes = [
         path: "/donate",
         name: "donate",
         component: GenericPage,
+        props: {pageName: "Donate", pagePath: "/donate"},
         children: [
             {
                 path: "",
@@ -145,6 +146,7 @@ const routes = [
         path: "/payment",
         name: "payment",
         component: GenericPage,
+        props: {pageName: "Payment", pagePath: "/payment"},
         children: [
             {
                 path: "",
@@ -172,6 +174,7 @@ const routes = [
         path: "/checkout",
         name: "checkout",
         component: GenericPage,
+        props: {pageName: "Checkout", pagePath: "/checkout"},
         children: [
             {
                 path: "",

@@ -1,7 +1,7 @@
 <template>
   <div class="is-preload">
     <!-- Header -->
-    <header-component/>
+    <header-component :pageName=pageName :pagePath=pagePath />
 
     <!-- Wrapper -->
     <div id="wrapper" class="wrapper-generic">
@@ -25,7 +25,11 @@ export default {
   },
   setup() {
     document.title = "Verifire";
-  }
+  },
+  props: {
+    pageName: String,
+    pagePath: String,
+  },
 }
 </script>
 

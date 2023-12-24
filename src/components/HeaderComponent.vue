@@ -7,7 +7,7 @@
           <router-link to="/">Home</router-link>
         </li>
         <li>
-          <router-link to="/#donate" class="active">Donate</router-link>
+          <router-link :to="pagePath" class="active">{{pageName}}</router-link>
         </li>
       </ul>
     </nav>
@@ -17,10 +17,12 @@
 <script>
 export default {
   setup() {
-
-
     return {}
-  }
+  },
+  props: {
+    pageName: String,
+    pagePath: String,
+  },
 }
 </script>
 
