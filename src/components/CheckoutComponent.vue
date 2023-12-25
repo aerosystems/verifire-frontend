@@ -31,12 +31,17 @@
           <td>✅ 24/7</td>
           <td>❌ Nothing</td>
         </tr>
+        <tr>
+          <td>Pricing</td>
+          <td>$10 / Month</td>
+          <td>$5 / Month</td>
+        </tr>
         </tbody>
         <tfoot>
         <tr>
           <td></td>
-          <td><router-link to="/checkout/business" class="button small primary">$10.00 / month</router-link></td>
-          <td><router-link to="/checkout/sturtup" class="button small">$5.00 / month</router-link></td>
+          <td><router-link to="/checkout/business" class="button small primary">Buy Now</router-link></td>
+          <td><router-link to="/checkout/sturtup" class="button small">Buy Now</router-link></td>
         </tr>
         </tfoot>
       </table>
