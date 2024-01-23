@@ -10,6 +10,18 @@ class SubsService {
                     }
                 })
     }
+
+    createInvoice(paymentMethod, kindSubscription, durationSubscription) {
+        return api
+            .post(`/subs/v1/invoices/${paymentMethod}`, {
+                kindSubscription: kindSubscription,
+                durationSubscription: durationSubscription
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                }
+            })
+    }
 }
 
 export default new SubsService();

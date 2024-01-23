@@ -50,11 +50,22 @@
 </template>
 
 <script>
+import SubsService from "@/services/subs.service";
 export default {
   setup() {
-
-
     return {}
+  },
+  methods: {
+    redirectToCheckout(kindSubscription, durationSubscription) {
+      SubsService.createInvoice('monobank', kindSubscription, durationSubscription).then(
+          response => {
+            window.location.href = response.data.paymentUrl;
+          },
+          error => {
+            console.log(error);
+          }
+      );
+    }
   }
 }
 </script>

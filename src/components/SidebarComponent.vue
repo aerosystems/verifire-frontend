@@ -7,6 +7,9 @@
             {{ userState.email }}
           </li>
           <li>
+            <router-link to="/billing#subscription">Subscription</router-link>
+          </li>
+          <li>
             <router-link to="/billing#apikey">API Key</router-link>
           </li>
           <li>
