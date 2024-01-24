@@ -16,6 +16,7 @@ import PaymentSuccessComponent from "@/components/PaymentSuccessComponent.vue";
 import PaymentFailureComponent from "@/components/PaymentFailureComponent.vue";
 import PaymentCancelComponent from "@/components/PaymentCancelComponent.vue";
 import CheckoutComponent from "@/components/CheckoutComponent.vue";
+import CheckoutSubscriptionComponent from "@/components/CheckoutSubscriptionComponent.vue";
 
 const routes = [
     {
@@ -180,6 +181,11 @@ const routes = [
                 path: "",
                 name: "checkout-default",
                 component: CheckoutComponent,
+            },
+            {
+                path: "/checkout/:subscriptionKind",
+                name: "checkout-subscription",
+                component: CheckoutSubscriptionComponent,
             }
         ]
     },

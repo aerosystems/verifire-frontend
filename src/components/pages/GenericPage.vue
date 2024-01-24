@@ -3,6 +3,9 @@
     <!-- Header -->
     <header-component :pageName=pageName :pagePath=pagePath />
 
+    <!-- Error -->
+    <error-component/>
+
     <!-- Wrapper -->
     <div id="wrapper" class="wrapper-generic">
       <router-view/>
@@ -16,10 +19,12 @@
 <script>
 import FooterComponent from "@/components/FooterComponent.vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
+import ErrorComponent from "@/components/ErrorComponent.vue";
 
 export default {
   name: "GenericPage",
   components: {
+    ErrorComponent,
     HeaderComponent,
     FooterComponent
   },

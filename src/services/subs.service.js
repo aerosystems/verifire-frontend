@@ -22,6 +22,17 @@ class SubsService {
                 }
             })
     }
+
+    getSubscriptionName(subscriptionKind) {
+        switch (subscriptionKind) {
+            case 'business':
+                return 'Business';
+            case 'startup':
+                return 'Startup';
+            default:
+                return undefined;
+        }
+    }
 }
 
 export default new SubsService();

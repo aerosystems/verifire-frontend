@@ -32,16 +32,25 @@
           <td>❌ Nothing</td>
         </tr>
         <tr>
-          <td>Pricing</td>
-          <td>$10 / Month</td>
-          <td>$5 / Month</td>
+          <td>Price per Month</td>
+          <td>$10</td>
+          <td>$5</td>
+        </tr>
+        <tr>
+          <td>Price per Year</td>
+          <td><s>$120</s> $100</td>
+          <td><s>$60</s> $50</td>
         </tr>
         </tbody>
         <tfoot>
         <tr>
           <td></td>
-          <td><router-link to="/checkout/business" class="button small primary">Buy Now</router-link></td>
-          <td><router-link to="/checkout/sturtup" class="button small">Buy Now</router-link></td>
+          <td>
+            <router-link to="/checkout/business" class="button primary small">Chose</router-link>
+          </td>
+          <td>
+            <router-link to="/checkout/startup" class="button small">Chose</router-link>
+          </td>
         </tr>
         </tfoot>
       </table>
@@ -50,23 +59,14 @@
 </template>
 
 <script>
-import SubsService from "@/services/subs.service";
 export default {
   setup() {
     return {}
   },
-  methods: {
-    redirectToCheckout(kindSubscription, durationSubscription) {
-      SubsService.createInvoice('monobank', kindSubscription, durationSubscription).then(
-          response => {
-            window.location.href = response.data.paymentUrl;
-          },
-          error => {
-            console.log(error);
-          }
-      );
+  data() {
+    return {
     }
-  }
+  },
 }
 </script>
 
