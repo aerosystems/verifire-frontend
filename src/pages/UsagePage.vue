@@ -8,7 +8,7 @@
         <h1 class="major">How to protect your site from temporary mails using <a href="https://api.testmail.top"
                                                                                  target="_blank">api.testmail.top</a>?
         </h1>
-        <span class="image fit"><img src="@/assets/images/example.png"
+        <span class="image fit"><img src="../assets/images/example.png"
                                      alt="How to protect web site fro disposable mail services"/></span>
         <p>So, below there will be a boring description of the API, while you have enthusiasm, remember the main thing:
           the main response parameter is <code>"result":</code>, if this parameter is <code>true</code> - feel free to

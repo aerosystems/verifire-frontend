@@ -25,8 +25,8 @@ export const project = {
         setProject({ commit }, project) {
             commit('setProject', project);
         },
-        addProject({ commit }, {projectName, userId}) {
-            return ProjectService.createProject(projectName, userId).then(
+        addProject({ commit }, {projectName, userUuid}) {
+            return ProjectService.createProject(projectName, userUuid).then(
                 function (response) {
                     const project = response.data.data;
                     commit('addToProjectList', project);

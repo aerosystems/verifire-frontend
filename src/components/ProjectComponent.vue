@@ -123,7 +123,7 @@ export default {
     addProject() {
       const project = {
         projectName: this.projectName,
-        userId: this.userState.id,
+        userUuid: this.userState.uuid,
       };
       this.$store.dispatch('project/addProject', project).then(
           response => {

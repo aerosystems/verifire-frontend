@@ -10,12 +10,12 @@ class ProjectService {
                 });
     }
 
-    createProject(projectName, userId) {
+    createProject(projectName, userUuid) {
         return api
             .post("/project/v1/projects",
                 {
                     name: projectName,
-                    userId: userId
+                    userUuid: userUuid
                 },
                 {
                     headers: {Authorization: 'Bearer ' + localStorage.getItem('accessToken')}
