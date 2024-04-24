@@ -47,7 +47,8 @@
 import {Form, Field, ErrorMessage} from "vee-validate";
 import {useReCaptcha} from 'vue-recaptcha-v3'
 import * as yup from "yup";
-import router from "@/router";
+// import router from "@/router";
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 export default {
   name: "SignupForm",
@@ -103,14 +104,12 @@ export default {
   methods: {
     async handleRegister(user) {
       this.loading = true;
-
-      let token = await this.recaptcha(undefined, undefined);
-
-      this.$store.dispatch("auth/register", {user, token}).then(
-          () => {
-            router.push({name: "auth-signup-confirm"});
-          },
-          (error) => {
+      createUserWithEmailAndPassword(getAuth(),user.email, user.password)
+          .then((userCredential) => {
+            console.log(userCredential)
+            // router.push({name: "auth-signup-confirm"});
+          })
+          .catch((error) => {
             this.loading = false;
             this.errorResponse =
                 (error.response &&
@@ -121,11 +120,31 @@ export default {
             setInterval(() => {
               this.errorResponse = "";
             }, 3000);
-          }
-      );
+          });
     }
-  },
-};
+
+    // let token = await this.recaptcha(undefined, undefined);
+    //
+    // this.$store.dispatch("auth/register", {user, token}).then(
+    //     () => {
+    //       router.push({name: "auth-signup-confirm"});
+    //     },
+    //     (error) => {
+    //       this.loading = false;
+    //       this.errorResponse =
+    //           (error.response &&
+    //               error.response.data &&
+    //               error.response.data.message) ||
+    //           error.message ||
+    //           error.toString();
+    //       setInterval(() => {
+    //         this.errorResponse = "";
+    //       }, 3000);
+    //     }
+    // );
+  }
+}
+;
 </script>
 
 <style lang="scss" scoped>
