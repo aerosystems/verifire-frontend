@@ -3,7 +3,7 @@
     <div>
       <div @click="this.$router.push({name: 'main'});" class="close"></div>
     </div>
-    <Form @submit="handleRegister" :validation-schema="schema">
+    <Form ref="formSignUp" @submit="handleRegister" :validation-schema="schema">
       <ul class="actions stacked">
         <li>
           <Field name="email" type="text" placeholder="Email"/>
@@ -45,10 +45,7 @@
 
 <script>
 import {Form, Field, ErrorMessage} from "vee-validate";
-import {useReCaptcha} from 'vue-recaptcha-v3'
 import * as yup from "yup";
-// import router from "@/router";
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
 
 export default {
   name: "SignupForm",
@@ -59,40 +56,28 @@ export default {
   },
   setup() {
     document.title = "Sign Up";
-    const {executeRecaptcha, recaptchaLoaded} = useReCaptcha();
-    const recaptcha = async () => {
-      // (optional) Wait until recaptcha has been loaded.
-      await recaptchaLoaded();
-
-      // Execute reCAPTCHA with action "login".
-      return await executeRecaptcha('login');
-    }
-
-    return {
-      recaptcha
-    }
   },
   data() {
     const schema = yup.object().shape({
       email: yup
           .string()
-          .required("Email is required!")
+          .required("Email is required")
           .email("Email must be valid!")
-          .min(3, "Must be at least 3 characters!")
-          .max(320, "Must be maximum 320 characters!"),
+          .min(3, "Must be at least 3 characters")
+          .max(320, "Must be maximum 320 characters"),
       password: yup
           .string()
           .required("Password is required!")
           .matches(
               /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*.?-])[A-Za-z\d!@#$%^&*.?-]+$/,
-              "Password must contain at least one uppercase letter, one digit, and one special character."
+              "Password must contain at least one uppercase letter, one digit, and one special character"
           )
-          .min(8, "Must be at least 8 characters!")
-          .max(128, "Must be maximum 128 characters!"),
+          .min(8, "Must be at least 8 characters")
+          .max(128, "Must be maximum 128 characters"),
       rePassword: yup
           .string()
-          .required("Retype password is required!")
-          .oneOf([yup.ref("password")], "Passwords must match!"),
+          .required("Retype password is required")
+          .oneOf([yup.ref("password")], "Passwords must match"),
     });
     return {
       loading: false,
@@ -104,13 +89,21 @@ export default {
   methods: {
     async handleRegister(user) {
       this.loading = true;
-      createUserWithEmailAndPassword(getAuth(),user.email, user.password)
-          .then((userCredential) => {
-            console.log(userCredential)
-            // router.push({name: "auth-signup-confirm"});
-          })
-          .catch((error) => {
+
+      this.$store.dispatch("auth/register", {user}).then(
+          () => {
             this.loading = false;
+
+            this.successResponse = "Check your email for next step of registration";
+            setInterval(() => {
+              this.$refs.formSignUp.resetForm();
+              this.user = {email: '', password: '', rePassword: ''};
+              this.successResponse = "";
+            }, 1000);
+          },
+          (error) => {
+            this.loading = false;
+
             this.errorResponse =
                 (error.response &&
                     error.response.data &&
@@ -120,28 +113,9 @@ export default {
             setInterval(() => {
               this.errorResponse = "";
             }, 3000);
-          });
+          }
+      );
     }
-
-    // let token = await this.recaptcha(undefined, undefined);
-    //
-    // this.$store.dispatch("auth/register", {user, token}).then(
-    //     () => {
-    //       router.push({name: "auth-signup-confirm"});
-    //     },
-    //     (error) => {
-    //       this.loading = false;
-    //       this.errorResponse =
-    //           (error.response &&
-    //               error.response.data &&
-    //               error.response.data.message) ||
-    //           error.message ||
-    //           error.toString();
-    //       setInterval(() => {
-    //         this.errorResponse = "";
-    //       }, 3000);
-    //     }
-    // );
   }
 }
 ;

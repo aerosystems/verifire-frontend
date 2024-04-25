@@ -1,5 +1,11 @@
 import AuthService from '@/services/auth.service';
-import TokenService from "@/services/token.service";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+    signInWithEmailAndPassword,
+    signOut
+} from 'firebase/auth';
 
 const user = JSON.parse(localStorage.getItem('user'));
 const initialState = user ? {status: {loggedIn: true}, user} : {status: {loggedIn: false}, user: null};
@@ -8,44 +14,44 @@ export const auth = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({commit}, {user, token}) {
-            return AuthService.login(user, token)
-                .then(
-                    function (user) {
-                        commit('loginSuccess', user);
-                        return Promise.resolve(user);
-                    },
-                    function (error) {
-                        commit('loginFailure');
-                        return Promise.reject(error);
-                    }
-                );
+        login({commit}, {user}) {
+            return signInWithEmailAndPassword(getAuth(), user.email, user.password)
+                .then((userCredential) => {
+                    commit('loginSuccess', userCredential.user);
+                    return Promise.resolve(userCredential.user);
+                }, (error) => {
+                    commit('loginFailure');
+                    return Promise.reject(error);
+                });
         },
         logout({commit}) {
-            if (TokenService.getLocalAccessToken() != null) {
-                return AuthService.logout().then(
-                    function (response) {
+            signOut(getAuth())
+                .then(() => {
                         commit('logout');
-                        return Promise.resolve(response.data);
                     },
-                    function (error) {
+                    (error) => {
                         commit('logout');
                         return Promise.reject(error);
                     }
                 );
-            }
         },
-        register({commit}, {user, token}) {
-            return AuthService.register(user, token).then(
-                function (response) {
-                    commit('registerSuccess');
-                    return Promise.resolve(response.data);
-                },
-                function (error) {
+        register({commit}, {user}) {
+            return createUserWithEmailAndPassword(getAuth(), user.email, user.password)
+                .then((userCredential) => {
+                    sendEmailVerification(userCredential.user)
+                        .then(() => {
+                                commit('registerSuccess');
+                                return Promise.resolve(userCredential.user);
+                            },
+                            (error) => {
+                                commit('registerFailure');
+                                return Promise.reject(error);
+                            }
+                        );
+                }, (error) => {
                     commit('registerFailure');
                     return Promise.reject(error);
-                }
-            );
+                });
         },
         recovery({commit}, {user, token}) {
             return AuthService.recovery(user, token).then(
