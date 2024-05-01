@@ -85,6 +85,7 @@ export default {
 
       this.$store.dispatch("auth/login", {user}).then(
           () => {
+            this.loading = false;
             router.push({name: "billing"});
           },
           (error) => {
