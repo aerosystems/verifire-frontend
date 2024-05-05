@@ -67,14 +67,14 @@ export default {
 
     return {}
   },
-  methods: {
-    setUser() {
-      this.$store.dispatch('user/setUser');
-    }
-  },
-  beforeMount() {
-    this.setUser();
-  }
+  // methods: {
+  //   setUser() {
+  //     this.$store.dispatch('user/setUser');
+  //   }
+  // },
+  // beforeMount() {
+  //   this.setUser();
+  // }
 }
 </script>
 

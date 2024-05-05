@@ -1,4 +1,5 @@
 import AuthService from '@/services/auth.service';
+
 import {
     getAuth,
     createUserWithEmailAndPassword,
@@ -87,6 +88,7 @@ export const auth = {
         loginSuccess(state, user) {
             state.status.loggedIn = true;
             state.user = user;
+            localStorage.setItem("accessToken", user.accessToken);
         },
         loginFailure(state) {
             state.status.loggedIn = false;

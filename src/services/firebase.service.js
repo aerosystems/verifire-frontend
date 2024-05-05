@@ -1,5 +1,4 @@
 import {initializeApp} from 'firebase/app';
-
 export function loadFirebaseConfig() {
     // from https://firebase.google.com/docs/hosting/reserved-urls?authuser=2
     // in dev env, web/public/__/firebase/init.json will be loaded
@@ -7,3 +6,4 @@ export function loadFirebaseConfig() {
         initializeApp(await response.json());
     })
 }
+

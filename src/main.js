@@ -2,7 +2,7 @@ import {createApp} from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import setupInterceptors from './services/interceptors';
+// import setupInterceptors from './services/interceptors';
 import {FontAwesomeIcon} from './plugins/font-awesome';
 import {VueReCaptcha} from 'vue-recaptcha-v3';
 import {loadFirebaseConfig} from "@/services/firebase.service";
@@ -13,7 +13,7 @@ const app = createApp(App)
     .use(VueReCaptcha, {siteKey: '6LcDavUUAAAAAIZjUAUUa0Rjh-o1zKocXDRRdfjO'})
     .component("font-awesome-icon", FontAwesomeIcon);
 
-setupInterceptors(store);
+// setupInterceptors(store);
 loadFirebaseConfig()
     // .then(function () {
     //     return Auth.waitForAuthReady()
