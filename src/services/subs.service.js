@@ -1,9 +1,15 @@
-import api from "@/services/api";
+import axios from "axios";
 
 class SubsService {
+    api = axios.create({
+        baseURL: process.env.VUE_APP_SUBSCRIPTION_SERVICE_BASE_URL,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
     getSubscription() {
-        return api
-            .get('/subs/v1/subscriptions',
+        return this.api
+            .get('/v1/subscriptions',
                 {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('accessToken')
@@ -12,8 +18,8 @@ class SubsService {
     }
 
     createInvoice(paymentMethod, kindSubscription, durationSubscription) {
-        return api
-            .post(`/subs/v1/invoices/${paymentMethod}`, {
+        return this.api
+            .post(`/v1/invoices/${paymentMethod}`, {
                 kindSubscription: kindSubscription,
                 durationSubscription: durationSubscription
             }, {

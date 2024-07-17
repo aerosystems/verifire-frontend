@@ -8,8 +8,8 @@ export const project = {
     namespaced: true,
     state: initialState,
     actions: {
-        setProjectList({ commit }, recaptchaToken) {
-            return ProjectService.getProjects(recaptchaToken).then(
+        setProjectList({commit}) {
+            return ProjectService.getProjects().then(
                 function (response) {
                     const projectList = response.data.data;
                     commit('setProjectList', projectList);
@@ -22,10 +22,10 @@ export const project = {
                 }
             );
         },
-        setProject({ commit }, project) {
+        setProject({commit}, project) {
             commit('setProject', project);
         },
-        addProject({ commit }, {projectName, userUuid}) {
+        addProject({commit}, {projectName, userUuid}) {
             return ProjectService.createProject(projectName, userUuid).then(
                 function (response) {
                     const project = response.data.data;
@@ -38,7 +38,7 @@ export const project = {
                 }
             );
         },
-        deleteProject({ commit }, projectId) {
+        deleteProject({commit}, projectId) {
             return ProjectService.deleteProject(projectId).then(
                 function (response) {
                     commit('removeFromProjectList', projectId);
