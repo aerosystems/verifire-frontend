@@ -22,4 +22,4 @@ pnpm-debug.log*
 *.sw?
 
 # Firebase files
-public/__/firebase/init.json
+public/__/firebase/*.json
