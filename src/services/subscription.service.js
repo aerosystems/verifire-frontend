@@ -1,30 +1,45 @@
 import axios from "axios";
+import {getAuth} from "firebase/auth";
 
-class SubsService {
+class SubscriptionService {
     api = axios.create({
-        baseURL: process.env.VUE_APP_SUBSCRIPTION_SERVICE_BASE_URL,
+        baseURL: process.env.VUE_APP_SBS_SERVICE_BASE_URL,
         headers: {
             "Content-Type": "application/json",
         },
     });
-    getSubscription() {
+
+    async getAccessToken() {
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        if (!user) {
+            throw new Error("User is not authenticated");
+        }
+
+        return await user.getIdToken();
+    }
+
+    async getSubscription() {
+        const accessToken = await this.getAccessToken();
         return this.api
             .get('/v1/subscriptions',
                 {
                     headers: {
-                        Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                        Authorization: `Bearer ${accessToken}`
                     }
                 })
     }
 
-    createInvoice(paymentMethod, kindSubscription, durationSubscription) {
+    async createInvoice(paymentMethod, kindSubscription, durationSubscription) {
+        const accessToken = await this.getAccessToken();
         return this.api
             .post(`/v1/invoices/${paymentMethod}`, {
                 kindSubscription: kindSubscription,
                 durationSubscription: durationSubscription
             }, {
                 headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem('accessToken')
+                    Authorization: `Bearer ${accessToken}`
                 }
             })
     }
@@ -41,4 +56,4 @@ class SubsService {
     }
 }
 
-export default new SubsService();
+export default new SubscriptionService();

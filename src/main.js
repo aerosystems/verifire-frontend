@@ -5,7 +5,7 @@ import store from "./store";
 // import setupInterceptors from './services/interceptors';
 import {FontAwesomeIcon} from './plugins/font-awesome';
 import {VueReCaptcha} from 'vue-recaptcha-v3';
-import {loadFirebaseConfig} from "@/services/firebase.service";
+import {loadFirebaseConfig} from "./firebase";
 
 const app = createApp(App)
     .use(router)

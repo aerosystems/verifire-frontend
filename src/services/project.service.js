@@ -1,41 +1,51 @@
 import axios from "axios";
+import { getAuth } from "firebase/auth";
 
 class ProjectService {
     api = axios.create({
-        baseURL: process.env.VUE_APP_PROJECT_SERVICE_BASE_URL,
+        baseURL: process.env.VUE_APP_PRJCT_SERVICE_BASE_URL,
         headers: {
             "Content-Type": "application/json",
         },
     });
 
-    getProjects() {
-        return this.api
-            .get("/v1/projects",
-                {
-                    headers: {Authorization: 'Bearer ' + localStorage.getItem('accessToken')}
-                });
+    async getAccessToken() {
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        if (!user) {
+            throw new Error("User is not authenticated");
+        }
+
+        return await user.getIdToken();
     }
 
-    createProject(projectName, userUuid) {
-        return this.api
-            .post("/v1/projects",
-                {
-                    name: projectName,
-                    userUuid: userUuid
-                },
-                {
-                    headers: {Authorization: 'Bearer ' + localStorage.getItem('accessToken')}
-                }
-            );
+    async getProjects() {
+        const accessToken = await this.getAccessToken();
+        return this.api.get("/v1/projects", {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
     }
 
-    deleteProject(projectId) {
-        return this.api
-            .delete("/project/v1/projects/" + projectId,
-                {
-                    headers: {Authorization: 'Bearer ' + localStorage.getItem('accessToken')}
-                }
-            );
+    async createProject(projectName, userUuid) {
+        const accessToken = await this.getAccessToken();
+        return this.api.post(
+            "/v1/projects",
+            {
+                name: projectName,
+                userUuid: userUuid,
+            },
+            {
+                headers: { Authorization: `Bearer ${accessToken}` },
+            }
+        );
+    }
+
+    async deleteProject(projectId) {
+        const accessToken = await this.getAccessToken();
+        return this.api.delete(`/project/v1/projects/${projectId}`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
     }
 }
 

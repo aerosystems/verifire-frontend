@@ -77,9 +77,6 @@ export const auth = {
                     return Promise.reject(error);
                 });
         },
-        updateTokens({commit}, accessToken, refreshToken) {
-            commit('updateTokens', accessToken, refreshToken);
-        },
         loggedIn({state}) {
             return Promise.resolve(state.status.loggedIn);
         }
@@ -88,7 +85,6 @@ export const auth = {
         loginSuccess(state, user) {
             state.status.loggedIn = true;
             state.user = user;
-            localStorage.setItem("accessToken", user.accessToken);
         },
         loginFailure(state) {
             state.status.loggedIn = false;
@@ -116,9 +112,5 @@ export const auth = {
         confirmFailure(state) {
             state.status.loggedIn = false;
         },
-        updateTokens(state, accessToken, refreshToken) {
-            state.status.loggedIn = true;
-            state.user = {...state.user, accessToken: accessToken, refreshToken: refreshToken};
-        }
-    }
+    },
 };

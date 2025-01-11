@@ -19,7 +19,7 @@
 <script>
 import {mapState} from "vuex";
 import moment from "moment";
-import SubsService from "@/services/subs.service";
+import SubsService from "@/services/subscription.service";
 
 export default {
   setup() {

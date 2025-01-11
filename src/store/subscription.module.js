@@ -1,4 +1,4 @@
-import SubsService  from "@/services/subs.service";
+import SubsService  from "@/services/subscription.service";
 
 const initialState = {
     subscription: null,

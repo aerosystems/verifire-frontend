@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import SubsService from "@/services/subs.service";
+import SubsService from "@/services/subscription.service";
 import store from "@/store";
 import router from "@/router";
 
