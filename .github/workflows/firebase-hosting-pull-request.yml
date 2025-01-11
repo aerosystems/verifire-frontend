@@ -16,7 +16,7 @@ jobs:
       - run: |
           echo "VUE_APP_PRJCT_SERVICE_BASE_URL=${{ secrets.VUE_APP_PRJCT_SERVICE_BASE_URL }}" >> .env
           echo "VUE_APP_SBS_SERVICE_BASE_URL=${{ secrets.VUE_APP_SBS_SERVICE_BASE_URL }}" >> .env
-      - uses: actions/checkout@v4
+          echo "VUE_APP_RECAPTCHA_V3_SITE_KEY=${{ secrets.VUE_APP_RECAPTCHA_V3_SITE_KEY }}" >> .env
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

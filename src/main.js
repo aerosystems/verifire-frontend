@@ -10,7 +10,7 @@ import {loadFirebaseConfig} from "./firebase";
 const app = createApp(App)
     .use(router)
     .use(store)
-    .use(VueReCaptcha, {siteKey: '6LcDavUUAAAAAIZjUAUUa0Rjh-o1zKocXDRRdfjO'})
+    .use(VueReCaptcha, {siteKey: process.env.VUE_APP_RECAPTCHA_V3_SITE_KEY})
     .component("font-awesome-icon", FontAwesomeIcon);
 
 // setupInterceptors(store);
