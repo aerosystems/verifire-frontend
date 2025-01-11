@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        run: |
+      - run: |
           echo "VUE_APP_PRJCT_SERVICE_BASE_URL=${{ secrets.VUE_APP_PRJCT_SERVICE_BASE_URL }}" >> .env
           echo "VUE_APP_SBS_SERVICE_BASE_URL=${{ secrets.VUE_APP_SBS_SERVICE_BASE_URL }}" >> .env
       - uses: actions/checkout@v4
