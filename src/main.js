@@ -13,17 +13,8 @@ const app = createApp(App)
     .use(VueReCaptcha, {siteKey: process.env.VUE_APP_RECAPTCHA_V3_SITE_KEY})
     .component("font-awesome-icon", FontAwesomeIcon);
 
-// setupInterceptors(store);
-loadFirebaseConfig()
-    // .then(function () {
-    //     return Auth.waitForAuthReady()
-    // })
-    // .then(function () {
-    //     return Auth.getJwtToken(false)
-    // })
-    // .then(token => {
-    //     setApiClientsAuth(token)
-    // })
+    // setupInterceptors(store);
+    loadFirebaseConfig()
     .finally(function () {
         app.mount('#app')
     })

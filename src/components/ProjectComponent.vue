@@ -90,8 +90,8 @@ export default {
     ...mapState({
       projectListState: state => state.project.projectList,
       projectState: state => state.project.project,
-      userState: state => state.user.user,
-      userRoleState: state => state.user.role,
+      userState: state => state.auth.user,
+      userRoleState: state => state.auth.user.role,
     })
   },
   watch: {

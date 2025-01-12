@@ -96,21 +96,27 @@ export const auth = {
         },
         registerSuccess(state) {
             state.status.loggedIn = false;
+            state.user = null;
         },
         registerFailure(state) {
             state.status.loggedIn = false;
+            state.user = null;
         },
         recoverySuccess(state) {
             state.status.loggedIn = false;
+            state.user = null;
         },
         recoveryFailure(state) {
             state.status.loggedIn = false;
+            state.user = null;
         },
         confirmSuccess(state) {
             state.status.loggedIn = false;
+            state.user = null;
         },
         confirmFailure(state) {
             state.status.loggedIn = false;
+            state.user = null;
         },
     },
 };
