@@ -1,120 +1,77 @@
-import AuthService from '@/services/auth.service';
-
 import {
     getAuth,
     createUserWithEmailAndPassword,
     sendEmailVerification,
     signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    onAuthStateChanged,
     signOut
 } from 'firebase/auth';
 
-const user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? {status: {loggedIn: true}, user} : {status: {loggedIn: false}, user: null};
+const initialState = {
+    status: { loggedIn: false },
+    user: null,
+};
 
 export const auth = {
     namespaced: true,
     state: initialState,
     actions: {
-        login({commit}, {user}) {
-            return signInWithEmailAndPassword(getAuth(), user.email, user.password)
-                .then((userCredential) => {
-                    commit('loginSuccess', userCredential.user);
-                    return Promise.resolve(userCredential.user);
-                }, (error) => {
-                    commit('loginFailure');
-                    return Promise.reject(error);
-                });
+        async login({ commit }, { email, password }) {
+            try {
+                const userCredential = await signInWithEmailAndPassword(getAuth(), email, password);
+                commit('setUser', userCredential.user);
+                return userCredential.user;
+            } catch (error) {
+                commit('clearUser');
+                throw error;
+            }
         },
-        logout({commit}) {
-            signOut(getAuth())
-                .then(() => {
-                        commit('logout');
-                    },
-                    (error) => {
-                        commit('logout');
-                        return Promise.reject(error);
+        async logout({ commit }) {
+            await signOut(getAuth());
+            commit('clearUser');
+        },
+        async register({ commit }, { email, password }) {
+            try {
+                console.log("!", email, password);
+
+                const userCredential = await createUserWithEmailAndPassword(getAuth(), email, password);
+                await sendEmailVerification(userCredential.user);
+                commit('setUser', userCredential.user);
+                return userCredential.user;
+            } catch (error) {
+                commit('clearUser');
+                throw error;
+            }
+        },
+        async recovery(_, email) {
+            await sendPasswordResetEmail(getAuth(), email);
+            return Promise.resolve();
+        },
+        async watchAuthState({ commit }) {
+            return new Promise((resolve) => {
+                onAuthStateChanged(getAuth(), (user) => {
+                    if (user) {
+                        commit('setUser', user);
+                        resolve(user); // повертає користувача
+                    } else {
+                        commit('clearUser');
+                        resolve(null); // повертає null
                     }
-                );
-        },
-        register({commit}, {user}) {
-            return createUserWithEmailAndPassword(getAuth(), user.email, user.password)
-                .then((userCredential) => {
-                    sendEmailVerification(userCredential.user)
-                        .then(() => {
-                                commit('registerSuccess');
-                                return Promise.resolve(userCredential.user);
-                            },
-                            (error) => {
-                                commit('registerFailure');
-                                return Promise.reject(error);
-                            }
-                        );
-                }, (error) => {
-                    commit('registerFailure');
-                    return Promise.reject(error);
                 });
+            });
         },
-        recovery({commit}, {user, token}) {
-            return AuthService.recovery(user, token).then(
-                function (response) {
-                    commit('recoverySuccess');
-                    return Promise.resolve(response.data);
-                },
-                function (error) {
-                    commit('recoveryFailure');
-                    return Promise.reject(error);
-                }
-            );
-        },
-        confirm({commit}, {data, token}) {
-            return AuthService.confirm(data, token).then(
-                function (response) {
-                    commit('confirmSuccess');
-                    return Promise.resolve(response.data);
-                },
-                function (error) {
-                    commit('confirmFailure');
-                    return Promise.reject(error);
-                });
-        },
-        loggedIn({state}) {
-            return Promise.resolve(state.status.loggedIn);
-        }
     },
     mutations: {
-        loginSuccess(state, user) {
+        setUser(state, user) {
             state.status.loggedIn = true;
-            state.user = user;
+            state.user = {
+                uid: user.uid,
+                email: user.email,
+                emailVerified: user.emailVerified,
+            };
         },
-        loginFailure(state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        },
-        logout(state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        },
-        registerSuccess(state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        },
-        registerFailure(state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        },
-        recoverySuccess(state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        },
-        recoveryFailure(state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        },
-        confirmSuccess(state) {
-            state.status.loggedIn = false;
-            state.user = null;
-        },
-        confirmFailure(state) {
+        clearUser(state) {
             state.status.loggedIn = false;
             state.user = null;
         },

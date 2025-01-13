@@ -90,9 +90,11 @@ export default {
     async handleRegister(user) {
       this.loading = true;
 
-      this.$store.dispatch("auth/register", {user}).then(
-          () => {
+      await this.$store.dispatch("auth/register", {email: user.email, password: user.password}).then(
+          (u) => {
             this.loading = false;
+
+            console.log(u);
 
             this.successResponse = "Check your email for next step of registration";
             setInterval(() => {

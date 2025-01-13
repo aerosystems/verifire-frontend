@@ -83,10 +83,10 @@ export default {
     async handleLogin(user) {
       this.loading = true;
 
-      this.$store.dispatch("auth/login", {user}).then(
+      this.$store.dispatch("auth/login", {email: user.email, password: user.password}).then(
           () => {
             this.loading = false;
-           router.push({name: "billing"});
+            router.push({name: "billing"});
           },
           (error) => {
             this.loading = false;

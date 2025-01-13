@@ -24,7 +24,7 @@ const routes = [
         name: "main",
         component: MainPage,
         beforeEnter: (to, from, next) => {
-            store.dispatch('auth/loggedIn').then(result => {
+            store.dispatch('auth/watchAuthState').then(result => {
                 if (!result) next();
                 next({name: "billing"});
             });
@@ -97,7 +97,7 @@ const routes = [
         name: "billing",
         component: BillingPage,
         beforeEnter: (to, from, next) => {
-            store.dispatch('auth/loggedIn').then(result => {
+            store.dispatch('auth/watchAuthState').then(result => {
                 if (result) next();
                 next({name: "auth-signin"});
             });
