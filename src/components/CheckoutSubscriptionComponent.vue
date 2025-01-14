@@ -5,10 +5,10 @@
       <div class="row">
         <ul class="actions">
           <li>
-            <a class="button primary" @click="redirectToCheckout(this.kindSubscription, '12m')">Annually</a>
+            <a class="button primary" @click="redirectToCheckout(this.subscriptionType, '12m')">Annually</a>
           </li>
           <li>
-            <a class="button" @click="redirectToCheckout(this.kindSubscription, '1m')">Monthly</a>
+            <a class="button" @click="redirectToCheckout(this.subscriptionType, '1m')">Monthly</a>
           </li>
         </ul>
       </div>
@@ -28,16 +28,16 @@ export default {
   data() {
     return {
       subscriptionName: "",
-      kindSubscription: "",
+      subscriptionType: "",
     }
   },
   beforeMount() {
     this.subscriptionName = this.getSubscriptionName();
-    this.kindSubscription = this.$route.params.subscriptionKind;
+    this.subscriptionType = this.$route.params.subscriptionKind;
   },
   methods: {
-    redirectToCheckout(kindSubscription, durationSubscription) {
-      SubsService.createInvoice('monobank', kindSubscription, durationSubscription).then(
+    redirectToCheckout(subscriptionType, subscriptionDuration) {
+      SubsService.createInvoice('monobank', subscriptionType, subscriptionDuration).then(
           response => {
             window.location.href = response.data.data.paymentUrl;
           },

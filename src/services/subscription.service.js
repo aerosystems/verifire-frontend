@@ -31,12 +31,12 @@ class SubscriptionService {
                 })
     }
 
-    async createInvoice(paymentMethod, kindSubscription, durationSubscription) {
+    async createInvoice(paymentMethod, subscriptionType, subscriptionDuration) {
         const accessToken = await this.getAccessToken();
         return this.api
             .post(`/v1/invoices/${paymentMethod}`, {
-                kindSubscription: kindSubscription,
-                durationSubscription: durationSubscription
+                subscriptionType: subscriptionType,
+                subscriptionDuration: subscriptionDuration
             }, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
