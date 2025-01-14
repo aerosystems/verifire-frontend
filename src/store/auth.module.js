@@ -33,8 +33,6 @@ export const auth = {
         },
         async register({ commit }, { email, password }) {
             try {
-                console.log("!", email, password);
-
                 const userCredential = await createUserWithEmailAndPassword(getAuth(), email, password);
                 await sendEmailVerification(userCredential.user);
                 commit('setUser', userCredential.user);
@@ -69,6 +67,7 @@ export const auth = {
                 uid: user.uid,
                 email: user.email,
                 emailVerified: user.emailVerified,
+                role: user.role,
             };
         },
         clearUser(state) {
