@@ -39,7 +39,7 @@ export default {
     redirectToCheckout(subscriptionType, subscriptionDuration) {
       SubsService.createInvoice('monobank', subscriptionType, subscriptionDuration).then(
           response => {
-            window.location.href = response.data.data.paymentUrl;
+            window.location.href = response.data.paymentUrl;
           },
           error => {
             store.dispatch('ui/addError', error);
