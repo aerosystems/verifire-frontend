@@ -1,12 +1,24 @@
-import api from "./api";
-import apiPublic from "./api.public";
 import TokenService from "@/services/token.service";
+import axios from "axios";
 
 class CheckmailService {
+    api = axios.create({
+        baseURL: process.env.VUE_APP_CHECKMAIL_SERVICE_BASE_URL,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    apiPublic = axios.create({
+        baseURL: process.env.VUE_APP_CHECKMAIL_SERVICE_BASE_URL,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 
     getCount(recaptchaToken) {
-        return api
-            .post("/checkmail/v1/domains/count",
+        return this.api
+            .post("/v1/domains/count",
                 {},
                 {
                     headers: {
@@ -16,8 +28,8 @@ class CheckmailService {
     }
 
     inspectPublic(data, recaptchaToken) {
-        return api
-            .post("/checkmail/v1/data/inspect",
+        return this.api
+            .post("/v1/data/inspect",
                 {
                     "data": data
                 },
@@ -30,7 +42,7 @@ class CheckmailService {
     }
 
     inspectPrivate(data, apiKey) {
-        return apiPublic
+        return this.apiPublic
             .post("/v1/data/inspect",
                 {
                     "data": data
@@ -45,8 +57,8 @@ class CheckmailService {
     }
 
     setDomainReview(data, recaptchaToken) {
-        return api
-            .post("/checkmail/v1/domains/review",
+        return this.api
+            .post("/v1/domains/review",
                 {
                     "name": data.name,
                     "type": data.type,
@@ -60,8 +72,8 @@ class CheckmailService {
     }
 
     setFilter(data, projectToken) {
-        return api
-            .post("/checkmail/v1/filters",
+        return this.api
+            .post("/v1/filters",
                 {
                     "name": data.name,
                     "type": data.type,

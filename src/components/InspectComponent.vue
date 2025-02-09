@@ -64,40 +64,37 @@ export default {
   inject: ['recaptchaLoaded'],
   methods: {
     async getListCount() {
-      //TODO: Uncomment this block of code after implementing the getCount method in the CheckmailService
-      // let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
-      // CheckmailService.getCount(recaptchaToken).then(
-      //     async response => {
-      //       const targetBlacklistCount = response.data.data.blacklist;
-      //       const targetWhitelistCount = response.data.data.whitelist;
-      //
-      //       // Функція для асинхронного збільшення blacklistCount
-      //       const increaseBlacklistCount = async () => {
-      //         while (this.blacklistCount < targetBlacklistCount) {
-      //           await new Promise(resolve => setTimeout(resolve, 1));
-      //           if (this.blacklistCount + 1234 > targetBlacklistCount) {
-      //             this.blacklistCount = targetBlacklistCount;
-      //             break;
-      //           }
-      //           this.blacklistCount += 1234;
-      //         }
-      //       };
-      //
-      //       // Функція для асинхронного збільшення whitelistCount
-      //       const increaseWhitelistCount = async () => {
-      //         while (this.whitelistCount < targetWhitelistCount) {
-      //           await new Promise(resolve => setTimeout(resolve, 1));
-      //           if (this.whitelistCount + 1234 > targetWhitelistCount) {
-      //             this.whitelistCount = targetWhitelistCount;
-      //             break;
-      //           }
-      //           this.whitelistCount += 1234;
-      //         }
-      //       };
-      //
-      //       await Promise.all([increaseBlacklistCount(), increaseWhitelistCount()]);
-      //     }
-      // );
+      let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
+      CheckmailService.getCount(recaptchaToken).then(
+          async response => {
+            const targetBlacklistCount = response.data.blacklist;
+            const targetWhitelistCount = response.data.whitelist;
+
+            const increaseBlacklistCount = async () => {
+              while (this.blacklistCount < targetBlacklistCount) {
+                await new Promise(resolve => setTimeout(resolve, 1));
+                if (this.blacklistCount + 1234 > targetBlacklistCount) {
+                  this.blacklistCount = targetBlacklistCount;
+                  break;
+                }
+                this.blacklistCount += 1234;
+              }
+            };
+
+            const increaseWhitelistCount = async () => {
+              while (this.whitelistCount < targetWhitelistCount) {
+                await new Promise(resolve => setTimeout(resolve, 1));
+                if (this.whitelistCount + 1234 > targetWhitelistCount) {
+                  this.whitelistCount = targetWhitelistCount;
+                  break;
+                }
+                this.whitelistCount += 1234;
+              }
+            };
+
+            await Promise.all([increaseBlacklistCount(), increaseWhitelistCount()]);
+          }
+      );
     },
     async inspect() {
       let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
