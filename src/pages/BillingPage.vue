@@ -21,7 +21,7 @@
       <statistics-component/>
 
       <!-- Fine-tuning -->
-      <fine-tuning-component/>
+      <!--      <fine-tuning-component/>-->
 
       <!-- Inspect -->
       <inspect-billing-component/>
