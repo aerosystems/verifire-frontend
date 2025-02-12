@@ -42,7 +42,7 @@ import DonateComponent from "@/components/DonateComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import ProjectComponent from "@/components/ProjectComponent.vue";
-import FineTuningComponent from "@/components/FineTuningComponent.vue";
+// import FineTuningComponent from "@/components/FineTuningComponent.vue";
 import InspectBillingComponent from "@/components/InspectBillingComponent.vue";
 import StatisticsComponent from "@/components/StatisticsComponent.vue";
 import SubscriptionComponent from "@/components/SubscriptionComponent.vue";
@@ -54,7 +54,7 @@ export default {
     InspectBillingComponent,
     SubscriptionComponent,
     StatisticsComponent,
-    FineTuningComponent,
+    // FineTuningComponent,
     // SwaggerComponent,
     ProjectComponent,
     FooterComponent,
