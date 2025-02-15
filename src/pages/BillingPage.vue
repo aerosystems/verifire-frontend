@@ -18,7 +18,7 @@
       <!--      <swagger-component/>-->
 
       <!-- Statistics -->
-      <statistics-component/>
+      <!--      <statistics-component/>-->
 
       <!-- Fine-tuning -->
       <!--      <fine-tuning-component/>-->
@@ -44,7 +44,7 @@ import FooterComponent from "@/components/FooterComponent.vue";
 import ProjectComponent from "@/components/ProjectComponent.vue";
 // import FineTuningComponent from "@/components/FineTuningComponent.vue";
 import InspectBillingComponent from "@/components/InspectBillingComponent.vue";
-import StatisticsComponent from "@/components/StatisticsComponent.vue";
+// import StatisticsComponent from "@/components/StatisticsComponent.vue";
 import SubscriptionComponent from "@/components/SubscriptionComponent.vue";
 import ErrorComponent from "@/components/ErrorComponent.vue";
 // import SwaggerComponent from "@/components/SwaggerComponent.vue";
@@ -53,7 +53,7 @@ export default {
   components: {
     InspectBillingComponent,
     SubscriptionComponent,
-    StatisticsComponent,
+    // StatisticsComponent,
     // FineTuningComponent,
     // SwaggerComponent,
     ProjectComponent,

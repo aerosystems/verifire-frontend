@@ -12,12 +12,12 @@
           <li>
             <router-link to="/billing#apikey">API Key</router-link>
           </li>
-          <li>
-            <router-link to="/billing#statistics">Statistics</router-link>
-          </li>
-          <li>
-            <router-link to="/billing#fine-tuning">Fine-tuning</router-link>
-          </li>
+<!--          <li>-->
+<!--            <router-link to="/billing#statistics">Statistics</router-link>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <router-link to="/billing#fine-tuning">Fine-tuning</router-link>-->
+<!--          </li>-->
           <li>
             <router-link to="/billing#inspect">Inspect</router-link>
           </li>
@@ -38,15 +38,15 @@
               Sign In
             </router-link>
           </li>
-          <li>
-            <router-link to="/#inspect">Inspect</router-link>
-          </li>
-          <li>
-            <router-link to="/#blacklist">Add Blacklist</router-link>
-          </li>
-          <li>
-            <router-link to="/#whitelist">Add Whitelist</router-link>
-          </li>
+<!--          <li>-->
+<!--            <router-link to="/#inspect">Inspect</router-link>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <router-link to="/#blacklist">Add Blacklist</router-link>-->
+<!--          </li>-->
+<!--          <li>-->
+<!--            <router-link to="/#whitelist">Add Whitelist</router-link>-->
+<!--          </li>-->
           <li>
             <router-link to="/#api">API</router-link>
           </li>
