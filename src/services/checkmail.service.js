@@ -17,8 +17,8 @@ class CheckmailService {
     });
 
     getCount(recaptchaToken) {
-        return this.api
-            .post("/v1/domains/count",
+        return this.apiPublic
+            .post("/v1/public/domains/count",
                 {},
                 {
                     headers: {
@@ -28,8 +28,8 @@ class CheckmailService {
     }
 
     inspectPublic(data, recaptchaToken) {
-        return this.api
-            .post("/v1/data/inspect",
+        return this.apiPublic
+            .post("/v1/public/data/inspect",
                 {
                     "data": data
                 },
@@ -42,7 +42,7 @@ class CheckmailService {
     }
 
     inspectPrivate(data, apiKey) {
-        return this.apiPublic
+        return this.api
             .post("/v1/data/inspect",
                 {
                     "data": data
@@ -53,7 +53,6 @@ class CheckmailService {
                     }
                 }
             )
-
     }
 
     setDomainReview(data, recaptchaToken) {

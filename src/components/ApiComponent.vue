@@ -5,7 +5,7 @@
         <div class="inner">
           <h2>API: Check Domain/Email mailbox address</h2>
           <p>
-            Endpoint: <code style="word-wrap: break-word;">https://api.testmail.top/v1/data/inspect</code>
+            Endpoint: <code style="word-wrap: break-word;">https://api.verifire.dev/v1/data/inspect</code>
             <br>
             Method: <code>POST</code>
             <br>
