@@ -91,6 +91,18 @@ export default {
   padding: 0.25em 0.65em;
 }
 
+.success-whitelist {
+  background: rgba(0, 154, 0, 0.38);
+}
+
+.success-blacklist {
+  background: rgba(255, 128, 0, 0.62);
+}
+
+.success-undefined {
+  background: rgba(0, 170, 208, 0.38);
+}
+
 .success {
   background: rgba(0, 255, 0, 0.38);
 }

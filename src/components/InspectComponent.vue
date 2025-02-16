@@ -30,8 +30,9 @@
             </div>
 
             <div class="col-12 col-12-xsmall">
-              <span v-show="searchSuccessResponse" class="response success">{{ searchSuccessResponse }}</span>
-              <span v-show="searchErrorResponse" class="response failed">{{ searchErrorResponse }}</span>
+              <span v-show="searchSuccessMessage"
+                    :class="['response', searchSuccessClass]">{{ searchSuccessMessage }}</span>
+              <span v-show="searchErrorMessage" class="response failed">{{ searchErrorMessage }}</span>
             </div>
 
           </div>
@@ -54,8 +55,13 @@ export default {
       blacklistCount: 0,
       whitelistCount: 0,
       searchInput: '',
-      searchSuccessResponse: '',
-      searchErrorResponse: ''
+      searchSuccessMessage: '',
+      searchSuccessClass: 'success-undefined',
+      searchErrorMessage: '',
+      searchSuccessClasses: {
+        'whitelist': 'success-whitelist',
+        'blacklist': 'success-blacklist'
+      }
     }
   },
   mounted() {
@@ -98,29 +104,31 @@ export default {
     },
     async inspect() {
       let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
-      this.searchSuccessResponse = '';
-      this.searchErrorResponse = '';
+      this.searchSuccessMessage = '';
+      this.searchErrorMessage = '';
 
       CheckmailService.inspectPublic(this.searchInput, recaptchaToken).then(
           response => {
-            this.searchSuccessResponse = response.data.message;
+            this.searchSuccessMessage = response.data.message;
+
+            this.searchSuccessClass = this.searchSuccessClasses[response.data.data];
             setTimeout(() => {
-              this.searchSuccessResponse = '';
+              this.searchSuccessMessage = '';
             }, 5000);
           },
           error => {
-            this.searchErrorResponse =
+            this.searchErrorMessage =
                 (error.response &&
                     error.response.data &&
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
             setTimeout(() => {
-              this.searchErrorResponse = '';
+              this.searchErrorMessage = '';
             }, 5000);
           }
       );
-    }
+    },
   }
 }
 </script>
