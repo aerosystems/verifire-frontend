@@ -20,7 +20,7 @@
           <div class="row gtr-uniform">
 
             <div class="col-6 col-12-xsmall">
-              <input v-model="searchInput" type="text" placeholder="example@mail.com or mail.com"/>
+              <input v-model="inspectInput" type="text" placeholder="example@mail.com or mail.com"/>
             </div>
 
             <div class="col-6 col-12-xsmall">
@@ -30,9 +30,9 @@
             </div>
 
             <div class="col-12 col-12-xsmall">
-              <span v-show="searchSuccessMessage"
-                    :class="['response', searchSuccessClass]">{{ searchSuccessMessage }}</span>
-              <span v-show="searchErrorMessage" class="response failed">{{ searchErrorMessage }}</span>
+              <span v-show="inspectSuccessMessage"
+                    :class="['response', inspectSuccessClass]">{{ inspectSuccessMessage }}</span>
+              <span v-show="inspectErrorMessage" class="response failed">{{ inspectErrorMessage }}</span>
             </div>
 
           </div>
@@ -54,11 +54,11 @@ export default {
     return {
       blacklistCount: 0,
       whitelistCount: 0,
-      searchInput: '',
-      searchSuccessMessage: '',
-      searchSuccessClass: 'success-undefined',
-      searchErrorMessage: '',
-      searchSuccessClasses: {
+      inspectInput: '',
+      inspectSuccessMessage: '',
+      inspectSuccessClass: 'success-undefined',
+      inspectErrorMessage: '',
+      inspectSuccessClasses: {
         'whitelist': 'success-whitelist',
         'blacklist': 'success-blacklist'
       }
@@ -104,27 +104,28 @@ export default {
     },
     async inspect() {
       let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
-      this.searchSuccessMessage = '';
-      this.searchErrorMessage = '';
+      this.inspectSuccessMessage = '';
+      this.inspectErrorMessage = '';
 
-      CheckmailService.inspectPublic(this.searchInput, recaptchaToken).then(
+      CheckmailService.inspectPublic(this.inspectInput, recaptchaToken).then(
           response => {
-            this.searchSuccessMessage = response.data.message;
+            const {message, domain} = response.data;
+            this.inspectSuccessMessage = message;
 
-            this.searchSuccessClass = this.searchSuccessClasses[response.data.data];
+            this.inspectSuccessClass = this.inspectSuccessClasses[domain.type];
             setTimeout(() => {
-              this.searchSuccessMessage = '';
+              this.inspectSuccessMessage = '';
             }, 5000);
           },
           error => {
-            this.searchErrorMessage =
+            this.inspectErrorMessage =
                 (error.response &&
                     error.response.data &&
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
             setTimeout(() => {
-              this.searchErrorMessage = '';
+              this.inspectErrorMessage = '';
             }, 5000);
           }
       );
