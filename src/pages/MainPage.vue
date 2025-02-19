@@ -9,11 +9,11 @@
       <!-- Check -->
       <inspect-component/>
 
-      <!-- Add domain to BLACKLIST -->
-      <blacklist-component/>
+<!--      &lt;!&ndash; Add domain to BLACKLIST &ndash;&gt;-->
+<!--      <blacklist-component/>-->
 
-      <!-- Add domain to WHITELIST -->
-      <whitelist-component/>
+<!--      &lt;!&ndash; Add domain to WHITELIST &ndash;&gt;-->
+<!--      <whitelist-component/>-->
 
       <!-- API -->
       <api-component/>
@@ -40,8 +40,8 @@ import FeedbackComponent from "@/components/FeedbackComponent.vue";
 import DonateComponent from "@/components/DonateComponent.vue";
 import AboutComponent from "@/components/AboutComponent.vue";
 import ApiComponent from "@/components/ApiComponent.vue";
-import WhitelistComponent from "@/components/WhitelistComponent.vue";
-import BlacklistComponent from "@/components/BlacklistComponent.vue";
+// import WhitelistComponent from "@/components/WhitelistComponent.vue";
+// import BlacklistComponent from "@/components/BlacklistComponent.vue";
 import InspectComponent from "@/components/InspectComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
 import {useReCaptcha} from "vue-recaptcha-v3";
@@ -51,8 +51,8 @@ export default {
   components: {
     SidebarComponent,
     InspectComponent,
-    BlacklistComponent,
-    WhitelistComponent,
+    // BlacklistComponent,
+    // WhitelistComponent,
     ApiComponent,
     AboutComponent,
     DonateComponent,
@@ -89,6 +89,18 @@ export default {
   font-size: 0.9em;
   margin: 0 0.25em;
   padding: 0.25em 0.65em;
+}
+
+.success-whitelist {
+  background: rgba(0, 154, 0, 0.38);
+}
+
+.success-blacklist {
+  background: rgba(255, 128, 0, 0.62);
+}
+
+.success-undefined {
+  background: rgba(0, 170, 208, 0.38);
 }
 
 .success {

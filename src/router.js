@@ -1,19 +1,22 @@
 import {createWebHistory, createRouter} from "vue-router";
 import store from "@/store";
-import MainPage from "./components/pages/MainPage.vue";
-import BillingPage from "@/components/pages/BillingPage.vue";
-import AuthPage from "@/components/pages/AuthPage.vue";
-import UsagePage from "@/components/pages/UsagePage.vue";
+import MainPage from "@/pages/MainPage.vue";
+import BillingPage from "@/pages/BillingPage.vue";
+import AuthPage from "@/pages/AuthPage.vue";
+import UsagePage from "@/pages/UsagePage.vue";
 import SignupForm from "@/components/auth/SignupForm.vue";
 import SigninForm from "@/components/auth/SigninForm.vue";
 import RecoveryForm from "@/components/auth/RecoveryForm.vue";
 import SignupConfirm from "@/components/auth/SignupConfirm.vue";
 import RecoveryConfirm from "@/components/auth/RecoveryConfirm.vue";
-import DeprecatedUsagePage from "@/components/pages/DeprecatedUsagePage.vue";
-import GenericPage from "@/components/pages/GenericPage.vue";
-import DonateSuccessComponent from "@/components/DonateSuccessComponent.vue";
-import DonateFailureComponent from "@/components/DonateFailureComponent.vue";
-import DonateCancelComponent from "@/components/DonateCancelComponent.vue";
+import DeprecatedUsagePage from "@/pages/DeprecatedUsagePage.vue";
+import GenericPage from "@/pages/GenericPage.vue";
+import PaymentComponent from "@/components/PaymentComponent.vue";
+import PaymentSuccessComponent from "@/components/PaymentSuccessComponent.vue";
+import PaymentFailureComponent from "@/components/PaymentFailureComponent.vue";
+import PaymentCancelComponent from "@/components/PaymentCancelComponent.vue";
+import CheckoutComponent from "@/components/CheckoutComponent.vue";
+import CheckoutSubscriptionComponent from "@/components/CheckoutSubscriptionComponent.vue";
 
 const routes = [
     {
@@ -21,7 +24,7 @@ const routes = [
         name: "main",
         component: MainPage,
         beforeEnter: (to, from, next) => {
-            store.dispatch('auth/loggedIn').then(result => {
+            store.dispatch('auth/watchAuthState').then(result => {
                 if (!result) next();
                 next({name: "billing"});
             });
@@ -94,7 +97,7 @@ const routes = [
         name: "billing",
         component: BillingPage,
         beforeEnter: (to, from, next) => {
-            store.dispatch('auth/loggedIn').then(result => {
+            store.dispatch('auth/watchAuthState').then(result => {
                 if (result) next();
                 next({name: "auth-signin"});
             });
@@ -111,9 +114,10 @@ const routes = [
         component: DeprecatedUsagePage,
     },
     {
-      path: "/donate",
-      name: "donate",
-      component: GenericPage,
+        path: "/donate",
+        name: "donate",
+        component: GenericPage,
+        props: {pageName: "Donate", pagePath: "/donate"},
         children: [
             {
                 path: "",
@@ -125,19 +129,65 @@ const routes = [
             {
                 path: "success",
                 name: "donate-success",
-                component: DonateSuccessComponent,
+                component: PaymentSuccessComponent,
             },
             {
                 path: "failure",
                 name: "donate-failure",
-                component: DonateFailureComponent,
+                component: PaymentFailureComponent,
             },
             {
                 path: "cancel",
                 name: "donate-cancel",
-                component: DonateCancelComponent,
+                component: PaymentCancelComponent,
             }
-            ]
+        ]
+    },
+    {
+        path: "/payment",
+        name: "payment",
+        component: GenericPage,
+        props: {pageName: "Payment", pagePath: "/payment"},
+        children: [
+            {
+                path: "",
+                name: "payment-default",
+                component: PaymentComponent,
+            },
+            {
+                path: "success",
+                name: "payment-success",
+                component: PaymentSuccessComponent,
+            },
+            {
+                path: "failure",
+                name: "payment-failure",
+                component: PaymentFailureComponent,
+            },
+            {
+                path: "cancel",
+                name: "payment-cancel",
+                component: PaymentCancelComponent,
+            }
+        ]
+    },
+    {
+        path: "/checkout",
+        name: "checkout",
+        component: GenericPage,
+        props: {pageName: "Checkout", pagePath: "/checkout"},
+        children: [
+            {
+                path: "",
+                name: "checkout-default",
+                component: CheckoutComponent,
+            },
+            {
+                path: "/checkout/:subscriptionKind",
+                name: "checkout-subscription",
+                component: CheckoutSubscriptionComponent,
+            }
+        ]
     },
     {
         path: "/:catchAll(.*)",

@@ -5,15 +5,13 @@
         <div class="inner">
           <h2>API: Check Domain/Email mailbox address</h2>
           <p>
-            Endpoint: <code style="word-wrap: break-word;">https://api.testmail.top/v1/data/inspect</code>
+            Endpoint: <code style="word-wrap: break-word;">https://api.verifire.dev/v1/data/inspect</code>
             <br>
             Method: <code>POST</code>
             <br>
-            Headers: <code>X-Api-Key: XXXXXXXXXX</code>
+            Headers: <code>X-Api-Key: XXXXXXXXXX</code> <code>Content-Type: application/json</code>
             <br>
-            Parameter content type: <code>application/json</code>
-            <br>
-            Example JSON request body:
+            Request body:
             <code style="word-wrap: break-word;">
               {"data": "example@mail.com", "clientIp": "8.8.8.8"}
             </code>
@@ -54,7 +52,7 @@
               <tr>
                 <td>X-Api-Key</td>
                 <td>API key. You can get after <a href="/signin">Registering</a> and login in your <a href="/billing">Personal
-                    Account</a></td>
+                  Account</a></td>
               </tr>
               </tbody>
             </table>

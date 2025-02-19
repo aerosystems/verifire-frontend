@@ -18,8 +18,9 @@
                   </ul>
                 </div>
                 <div class="col-12 col-12-xsmall">
-                  <span v-show="inspectSuccessResponse" class="response success">{{ inspectSuccessResponse }}</span>
-                  <span v-show="inspectErrorResponse" class="response failed">{{ inspectErrorResponse }}</span>
+              <span v-show="inspectSuccessMessage"
+                    :class="['response', inspectSuccessClass]">{{ inspectSuccessMessage }}</span>
+                  <span v-show="inspectErrorMessage" class="response failed">{{ inspectErrorMessage }}</span>
                 </div>
               </div>
             </form>
@@ -37,8 +38,13 @@ export default {
   data() {
     return {
       inspectInput: '',
-      inspectSuccessResponse: '',
-      inspectErrorResponse: ''
+      inspectSuccessMessage: '',
+      inspectSuccessClass: 'success-undefined',
+      inspectErrorMessage: '',
+      inspectSuccessClasses: {
+        'whitelist': 'success-whitelist',
+        'blacklist': 'success-blacklist'
+      }
     }
   },
   computed: {
@@ -48,21 +54,27 @@ export default {
   },
   methods: {
     async inspect() {
-      this.inspectSuccessResponse = '';
-      this.inspectErrorResponse = '';
+      this.inspectSuccessMessage = '';
+      this.inspectErrorMessage = '';
       CheckmailService.inspectPrivate(this.inspectInput, this.projectState.token).then(
           response => {
-            this.inspectSuccessResponse = response.data.message;
+            const {message, domain} = response.data;
+            this.inspectSuccessMessage = message;
+
+            this.inspectSuccessClass = this.inspectSuccessClasses[domain.type];
             setTimeout(() => {
-              this.inspectSuccessResponse = '';
-              this.inspectInput = '';
+              this.inspectSuccessMessage = '';
             }, 5000);
           },
           error => {
-            this.inspectErrorResponse = error.response.data.message;
+            this.inspectErrorMessage =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
             setTimeout(() => {
-              this.inspectErrorResponse = '';
-              this.inspectInput = '';
+              this.inspectErrorMessage = '';
             }, 5000);
           }
       );

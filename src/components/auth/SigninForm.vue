@@ -3,7 +3,7 @@
     <div>
       <div @click="this.$router.push({name: 'main'});" class="close"></div>
     </div>
-    <Form @submit="handleLogin" :validation-schema="schema">
+    <Form ref="formSignIn" @submit="handleLogin" :validation-schema="schema">
       <ul class="actions stacked">
         <li>
           <Field name="email" type="text" placeholder="Email"/>
@@ -41,12 +41,11 @@
 
 <script>
 import {Form, Field, ErrorMessage} from "vee-validate";
-import {useReCaptcha} from 'vue-recaptcha-v3'
 import * as yup from "yup";
 import router from "@/router";
 
 export default {
-  name: "SigninPage",
+  name: "SigninForm",
   components: {
     Form,
     Field,
@@ -54,36 +53,24 @@ export default {
   },
   setup() {
     document.title = "Sign In";
-    const {executeRecaptcha, recaptchaLoaded} = useReCaptcha();
-    const recaptcha = async () => {
-      // (optional) Wait until recaptcha has been loaded.
-      await recaptchaLoaded();
-
-      // Execute reCAPTCHA with action "login".
-      return await executeRecaptcha('login');
-    }
-
-    return {
-      recaptcha
-    }
   },
   data() {
     const schema = yup.object().shape({
       email: yup
           .string()
-          .required("Email is required!")
-          .email("Email must be valid!")
-          .min(3, "Must be at least 3 characters!")
-          .max(320, "Must be maximum 320 characters!"),
+          .required("Email is required")
+          .email("Email must be valid")
+          .min(3, "Must be at least 3 characters")
+          .max(320, "Must be maximum 320 characters"),
       password: yup
           .string()
-          .required("Password is required!")
+          .required("Password is required")
           .matches(
               /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*.?-])[A-Za-z\d!@#$%^&*.?-]+$/,
               "Password must contain at least one uppercase letter, one digit, and one special character."
           )
-          .min(8, "Must be at least 8 characters!")
-          .max(128, "Must be maximum 128 characters!"),
+          .min(8, "Must be at least 8 characters")
+          .max(128, "Must be maximum 128 characters"),
     });
     return {
       loading: false,
@@ -96,14 +83,14 @@ export default {
     async handleLogin(user) {
       this.loading = true;
 
-      let token = await this.recaptcha(undefined, undefined);
-
-      this.$store.dispatch("auth/login", {user, token}).then(
+      this.$store.dispatch("auth/login", {email: user.email, password: user.password}).then(
           () => {
+            this.loading = false;
             router.push({name: "billing"});
           },
           (error) => {
             this.loading = false;
+
             this.errorResponse =
                 (error.response &&
                     error.response.data &&

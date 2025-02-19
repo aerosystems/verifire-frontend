@@ -2575,11 +2575,11 @@ input[type="radio"] + label:before {
     color: #7c4813;
 }
 
-.wrapper.style5 .icon.major:before {
+.wrapper.style6 .icon.major:before {
     color: #791f77;
 }
 
-.wrapper.style5-alt .icon.major:before {
+.wrapper.style6-alt .icon.major:before {
     color: #641562;
 }
 

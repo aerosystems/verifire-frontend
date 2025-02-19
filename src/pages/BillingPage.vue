@@ -18,10 +18,10 @@
       <!--      <swagger-component/>-->
 
       <!-- Statistics -->
-      <statistics-component/>
+      <!--      <statistics-component/>-->
 
       <!-- Fine-tuning -->
-      <fine-tuning-component/>
+      <!--      <fine-tuning-component/>-->
 
       <!-- Inspect -->
       <inspect-billing-component/>
@@ -42,9 +42,9 @@ import DonateComponent from "@/components/DonateComponent.vue";
 import SidebarComponent from "@/components/SidebarComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import ProjectComponent from "@/components/ProjectComponent.vue";
-import FineTuningComponent from "@/components/FineTuningComponent.vue";
+// import FineTuningComponent from "@/components/FineTuningComponent.vue";
 import InspectBillingComponent from "@/components/InspectBillingComponent.vue";
-import StatisticsComponent from "@/components/StatisticsComponent.vue";
+// import StatisticsComponent from "@/components/StatisticsComponent.vue";
 import SubscriptionComponent from "@/components/SubscriptionComponent.vue";
 import ErrorComponent from "@/components/ErrorComponent.vue";
 // import SwaggerComponent from "@/components/SwaggerComponent.vue";
@@ -53,8 +53,8 @@ export default {
   components: {
     InspectBillingComponent,
     SubscriptionComponent,
-    StatisticsComponent,
-    FineTuningComponent,
+    // StatisticsComponent,
+    // FineTuningComponent,
     // SwaggerComponent,
     ProjectComponent,
     FooterComponent,
@@ -67,14 +67,6 @@ export default {
 
     return {}
   },
-  methods: {
-    setUser() {
-      this.$store.dispatch('user/setUser');
-    }
-  },
-  beforeMount() {
-    this.setUser();
-  }
 }
 </script>
 

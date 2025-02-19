@@ -1,7 +1,10 @@
 <template>
   <div class="is-preload">
     <!-- Header -->
-    <header-component/>
+    <header-component :pageName=pageName :pagePath=pagePath />
+
+    <!-- Error -->
+    <error-component/>
 
     <!-- Wrapper -->
     <div id="wrapper" class="wrapper-generic">
@@ -16,23 +19,22 @@
 <script>
 import FooterComponent from "@/components/FooterComponent.vue";
 import HeaderComponent from "@/components/HeaderComponent.vue";
-import router from "@/router";
+import ErrorComponent from "@/components/ErrorComponent.vue";
 
 export default {
-  name: "DonatePage",
+  name: "GenericPage",
   components: {
+    ErrorComponent,
     HeaderComponent,
     FooterComponent
   },
   setup() {
     document.title = "Verifire";
   },
-  mounted() {
-    setTimeout(() => {
-          router.push({name: "main"});
-        }, 5000
-    );
-  }
+  props: {
+    pageName: String,
+    pagePath: String,
+  },
 }
 </script>
 

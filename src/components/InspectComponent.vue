@@ -3,12 +3,12 @@
     <div class="inner">
       <div class="features">
         <section>
-          <span class="icon solid major fa-lock"></span>
+          <span class="icon solid major"><font-awesome-icon icon="fa-lock"/></span>
           <h3>BLACKLIST: {{ blacklistCount }}</h3>
           <p></p>
         </section>
         <section>
-          <span class="icon solid major fa-unlock"></span>
+          <span class="icon solid major"><font-awesome-icon icon="fa-unlock"/></span>
           <h3>WHITELIST: {{ whitelistCount }}</h3>
           <p></p>
         </section>
@@ -20,7 +20,7 @@
           <div class="row gtr-uniform">
 
             <div class="col-6 col-12-xsmall">
-              <input v-model="searchInput" type="text" placeholder="example@mail.com or mail.com"/>
+              <input v-model="inspectInput" type="text" placeholder="example@mail.com or mail.com"/>
             </div>
 
             <div class="col-6 col-12-xsmall">
@@ -30,8 +30,9 @@
             </div>
 
             <div class="col-12 col-12-xsmall">
-              <span v-show="searchSuccessResponse" class="response success">{{ searchSuccessResponse }}</span>
-              <span v-show="searchErrorResponse" class="response failed">{{ searchErrorResponse }}</span>
+              <span v-show="inspectSuccessMessage"
+                    :class="['response', inspectSuccessClass]">{{ inspectSuccessMessage }}</span>
+              <span v-show="inspectErrorMessage" class="response failed">{{ inspectErrorMessage }}</span>
             </div>
 
           </div>
@@ -53,9 +54,14 @@ export default {
     return {
       blacklistCount: 0,
       whitelistCount: 0,
-      searchInput: '',
-      searchSuccessResponse: '',
-      searchErrorResponse: ''
+      inspectInput: '',
+      inspectSuccessMessage: '',
+      inspectSuccessClass: 'success-undefined',
+      inspectErrorMessage: '',
+      inspectSuccessClasses: {
+        'whitelist': 'success-whitelist',
+        'blacklist': 'success-blacklist'
+      }
     }
   },
   mounted() {
@@ -67,10 +73,9 @@ export default {
       let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
       CheckmailService.getCount(recaptchaToken).then(
           async response => {
-            const targetBlacklistCount = response.data.data.blacklist;
-            const targetWhitelistCount = response.data.data.whitelist;
+            const targetBlacklistCount = response.data.blacklist;
+            const targetWhitelistCount = response.data.whitelist;
 
-            // Функція для асинхронного збільшення blacklistCount
             const increaseBlacklistCount = async () => {
               while (this.blacklistCount < targetBlacklistCount) {
                 await new Promise(resolve => setTimeout(resolve, 1));
@@ -82,7 +87,6 @@ export default {
               }
             };
 
-            // Функція для асинхронного збільшення whitelistCount
             const increaseWhitelistCount = async () => {
               while (this.whitelistCount < targetWhitelistCount) {
                 await new Promise(resolve => setTimeout(resolve, 1));
@@ -100,33 +104,44 @@ export default {
     },
     async inspect() {
       let recaptchaToken = await this.recaptchaLoaded(undefined, undefined);
-      this.searchSuccessResponse = '';
-      this.searchErrorResponse = '';
+      this.inspectSuccessMessage = '';
+      this.inspectErrorMessage = '';
 
-      CheckmailService.inspectPublic(this.searchInput, recaptchaToken).then(
+      CheckmailService.inspectPublic(this.inspectInput, recaptchaToken).then(
           response => {
-            this.searchSuccessResponse = response.data.message;
+            const {message, domain} = response.data;
+            this.inspectSuccessMessage = message;
+
+            this.inspectSuccessClass = this.inspectSuccessClasses[domain.type];
             setTimeout(() => {
-              this.searchSuccessResponse = '';
+              this.inspectSuccessMessage = '';
             }, 5000);
           },
           error => {
-            this.searchErrorResponse =
+            this.inspectErrorMessage =
                 (error.response &&
                     error.response.data &&
                     error.response.data.message) ||
                 error.message ||
                 error.toString();
             setTimeout(() => {
-              this.searchErrorResponse = '';
+              this.inspectErrorMessage = '';
             }, 5000);
           }
       );
-    }
+    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
+.wrapper.style1 .icon.major {
+  color: #5e42a6;
+}
+
+.wrapper.style1-alt .icon.major {
+  color: #493382;
+}
 
 </style>

@@ -1,17 +1,25 @@
-import { createApp } from "vue";
+import {createApp} from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import setupInterceptors from './services/interceptors';
-import { FontAwesomeIcon } from './plugins/font-awesome';
-import { VueReCaptcha } from 'vue-recaptcha-v3'
+import {FontAwesomeIcon} from './plugins/font-awesome';
+import {VueReCaptcha} from 'vue-recaptcha-v3';
+import {loadFirebaseConfig} from "./firebase";
 
-const app = createApp(App)
-    .use(router)
-    .use(store)
-    .use(VueReCaptcha, { siteKey: '6LcDavUUAAAAAIZjUAUUa0Rjh-o1zKocXDRRdfjO' })
-    .component("font-awesome-icon", FontAwesomeIcon)
 
-app.mount("#app");
+(async () => {
+    try {
+        await loadFirebaseConfig();
+        console.log("Firebase initialized successfully.");
 
-setupInterceptors(store);
+        const app = createApp(App)
+            .use(router)
+            .use(store)
+            .use(VueReCaptcha, { siteKey: process.env.VUE_APP_RECAPTCHA_V3_SITE_KEY })
+            .component("font-awesome-icon", FontAwesomeIcon);
+
+        app.mount('#app');
+    } catch (error) {
+        console.error("Failed to initialize Firebase:", error);
+    }
+})();
