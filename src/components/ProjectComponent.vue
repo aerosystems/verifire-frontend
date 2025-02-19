@@ -42,8 +42,10 @@
                 <div class="col-6">
                   <ul class="actions">
                     <li>
-                      <a href="#" class="button primary" :class="{'disabled': userState.role === 'startup'}" @click="addProject">
-                        <font-awesome-icon icon="fa-add"/> Add
+                      <a href="#" class="button primary"
+                         :class="{'disabled': userState && userState.role === 'startup'}" @click="addProject">
+                        <font-awesome-icon icon="fa-add"/>
+                        Add
                       </a>
                     </li>
                   </ul>
@@ -57,7 +59,8 @@
           </section>
           <section>
             <h4>
-              Search for usage examples <router-link to="/usage" target="_blank">here</router-link>
+              Search for usage examples
+              <router-link to="/usage" target="_blank">here</router-link>
             </h4>
           </section>
         </div>
