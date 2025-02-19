@@ -42,7 +42,7 @@
                 <div class="col-6">
                   <ul class="actions">
                     <li>
-                      <a href="#" class="button primary" :class="{'disabled': userRoleState === 'startup'}" @click="addProject">
+                      <a href="#" class="button primary" :class="{'disabled': userState.role === 'startup'}" @click="addProject">
                         <font-awesome-icon icon="fa-add"/> Add
                       </a>
                     </li>
@@ -91,7 +91,6 @@ export default {
       projectListState: state => state.project.projectList,
       projectState: state => state.project.project,
       userState: state => state.auth.user,
-      userRoleState: state => state.auth.user.role,
     })
   },
   watch: {
